@@ -1,0 +1,17 @@
+{
+  "name": "tyler-app-style",
+  "description": "Tyler App Style — a hybrid SwiftUI design system combining Nothing Design's dark monochrome palette and typographic discipline with Apple's Liquid Glass translucency, spring animations, and native macOS navigation patterns. Targets macOS 26+ (Tahoe).",
+  "version": "1.0.0",
+  "author": "Tyler",
+  "license": "MIT",
+  "keywords": [
+    "swiftui",
+    "macos",
+    "design-system",
+    "liquid-glass",
+    "nothing-design",
+    "dark-mode",
+    "glass-effect",
+    "tahoe"
+  ]
+}

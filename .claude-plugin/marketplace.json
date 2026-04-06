@@ -1,0 +1,12 @@
+{
+  "plugins": [
+    {
+      "name": "tyler-app-style",
+      "source": "./plugins/tyler-app-style",
+      "description": "A hybrid dark-mode design system blending Nothing Design (monochrome + orange accent, all-caps labels, monospace data fonts, 8pt grid) with Apple Liquid Glass (glassEffect, GlassEffectContainer, NavigationSplitView, spring animations, system materials). For macOS 26+ SwiftUI apps.",
+      "version": "1.0.0",
+      "keywords": ["swiftui", "macos", "design-system", "liquid-glass", "dark-mode", "nothing-design"],
+      "category": "design"
+    }
+  ]
+}

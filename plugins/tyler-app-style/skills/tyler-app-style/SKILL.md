@@ -480,6 +480,19 @@ content
     )
 ```
 
+## Annotation & Review System
+
+For apps with annotation/review workflows (document review, design critique, slide markup), use these patterns from the `annotation-patterns.md` reference:
+
+- **Unified annotation types** — enum wrapping draw boxes, pins, text edits with shared properties (id, colorIndex, noteText, createdAt) and unified numbering
+- **Draggable pin markers** — `NormalizedPoint` (0-1 range) with local `@State` drag offset for smooth gesture handling
+- **Properties popover** — click annotation in list to show popover with note editor, color picker, delete; uses **explicit save buttons** (cancel / add note / save) instead of auto-save to prevent value-type binding bugs
+- **Custom color** — 8 preset colors + `ColorPicker` for custom, stored as hex string, resolved via `resolvedColor(for:customHex:)`
+- **Recolor after placement** — color picker sets next color AND updates selected item's color
+- **Tool mode mutual exclusivity** — boolean flags with one-clears-all activation; tool controls live in the side panel header
+- **Verdict/disposition tags** — enum-based status tags (APPROVE/REVISE/CUT/MERGE/SPLIT/REORDER) with typed context as colored glass capsules
+- **Visual hint overlay** — when tool mode is active and no items exist, dim content to 50% with centered instruction, `.allowsHitTesting(false)` so taps pass through
+
 ## Anti-Patterns — Do NOT
 
 1. **Do not use `.background(.regularMaterial)`** on content areas — glass is only for chrome/navigation

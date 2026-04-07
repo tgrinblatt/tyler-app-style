@@ -162,9 +162,9 @@ var workspaceToolbar: some ToolbarContent {
 }
 ```
 
-## Collapsible Side Panel (Notes / Inspector)
+## Collapsible Side Panel (Notes / Inspector / Tool Controls)
 
-The right-side panel is a simple HStack child that toggles with a trailing transition:
+The right-side panel is a simple HStack child that toggles with a trailing transition. Tool controls (mode buttons, color picker) live in the **panel header** rather than at the bottom of the main content, keeping the main content area clean.
 
 ```swift
 struct WorkspaceView: View {
@@ -173,14 +173,14 @@ struct WorkspaceView: View {
 
     var body: some View {
         HStack(spacing: 0) {
-            // Main workspace content
+            // Main workspace content — stays clean, no tool controls here
             mainContent
                 .frame(maxWidth: .infinity)
 
-            // Collapsible notes/inspector panel
+            // Collapsible side panel with tool controls in header
             if notesPanelVisible {
                 Divider()
-                NotesSidePanel()
+                AnnotationPanel(/* ... */)
                     .frame(width: 300)
                     .transition(.move(edge: .trailing).combined(with: .opacity))
             }
@@ -188,6 +188,33 @@ struct WorkspaceView: View {
         .toolbar { workspaceToolbar }
         .toolbarBackgroundVisibility(.hidden, for: .windowToolbar)
         .animation(AppTokens.Motion.smooth, value: notesPanelVisible)
+    }
+}
+
+// Panel header with tool controls
+struct AnnotationPanelHeader: View {
+    @Environment(\.colorScheme) private var colorScheme
+
+    var body: some View {
+        VStack(spacing: AppTokens.Spacing.sm) {
+            HStack {
+                Text("ANNOTATIONS").appLabel()
+                Spacer()
+                // Tool mode buttons in the panel header
+                GlassEffectContainer {
+                    HStack(spacing: AppTokens.Spacing.xxs) {
+                        toolButton("rectangle.dashed", mode: .draw)
+                        toolButton("mappin", mode: .pin)
+                        toolButton("character.cursor.ibeam", mode: .textEdit)
+                    }
+                }
+            }
+            // Color picker row also in the panel header
+            ColorPickerRow(selectedIndex: $colorIndex, customHex: $customHex)
+        }
+        .padding(.horizontal, AppTokens.Spacing.md)
+        .padding(.vertical, AppTokens.Spacing.sm)
+        .background(AppTokens.Color.surface(for: colorScheme).opacity(0.5))
     }
 }
 ```

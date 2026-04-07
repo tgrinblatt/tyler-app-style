@@ -1,6 +1,6 @@
-# Example: Document Comparison App Layout (v2 Architecture)
+# Example: Document Comparison App Layout (v3 Architecture)
 
-A complete example showing how to structure a Tyler App Style document comparison app using the v2 architecture: NavigationSplitView shell, unified sidebar router, workspace toolbar with mode toggle, and collapsible notes panel.
+A complete example showing how to structure a Tyler App Style document comparison app using the v3 architecture: NavigationSplitView shell, unified sidebar router, workspace toolbar with mode toggle, collapsible annotation panel with tool controls, pin overlays, properties popovers, verdict tags, and explicit save editors.
 
 ## App Entry Point
 
@@ -342,15 +342,177 @@ struct NotesSidePanel: View {
 }
 ```
 
-## Key Takeaways (v2 Architecture)
+## Pin Overlay on Content Area
+
+Draggable numbered pin markers overlaid on the slide image. Pins use `NormalizedPoint` for resolution independence and local `@State` offset for smooth dragging.
+
+```swift
+struct SlideWithPins: View {
+    let annotations: [Annotation]
+    let selectedID: UUID?
+    let onPinDragEnd: (UUID, NormalizedPoint) -> Void
+    let onPinTap: (UUID) -> Void
+
+    var body: some View {
+        GeometryReader { geo in
+            ZStack {
+                // Slide image content
+                slideImage
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+
+                // Pin overlay
+                ForEach(pinAnnotations) { annotation in
+                    PinMarkerView(
+                        annotation: annotation,
+                        displayNumber: displayNumber(for: annotation),
+                        isSelected: annotation.id == selectedID,
+                        containerSize: geo.size,
+                        onDragEnd: { point in onPinDragEnd(annotation.id, point) },
+                        onTap: { onPinTap(annotation.id) }
+                    )
+                }
+            }
+        }
+    }
+
+    private var pinAnnotations: [Annotation] {
+        annotations.filter { if case .pin = $0.type { return true }; return false }
+    }
+}
+```
+
+## Annotation Properties Popover
+
+Click an annotation in the side panel list to show a popover with note editor, color picker, and delete. Uses explicit cancel/save buttons instead of auto-save bindings.
+
+```swift
+struct AnnotationRow: View {
+    let annotation: Annotation
+    let displayNumber: Int
+    let isSelected: Bool
+    @State private var showPopover = false
+    @Environment(\.colorScheme) private var colorScheme
+
+    var body: some View {
+        HStack(spacing: AppTokens.Spacing.sm) {
+            Circle()
+                .fill(resolvedColor(for: annotation.colorIndex, customHex: annotation.customColorHex))
+                .frame(width: 24, height: 24)
+                .overlay(
+                    Text("\(displayNumber)")
+                        .font(AppTokens.Font.caption)
+                        .foregroundStyle(.white)
+                )
+            VStack(alignment: .leading) {
+                Text(annotation.typeLabel).font(AppTokens.Font.label).appLabel()
+                if !annotation.noteText.isEmpty {
+                    Text(annotation.noteText)
+                        .font(AppTokens.Font.bodySmall)
+                        .foregroundStyle(AppTokens.Color.textSecondary(for: colorScheme))
+                        .lineLimit(1)
+                }
+            }
+            Spacer()
+        }
+        .padding(AppTokens.Spacing.sm)
+        .background(
+            RoundedRectangle(cornerRadius: AppTokens.Radius.md)
+                .fill(isSelected ? AppTokens.Color.accentDim(for: colorScheme) : .clear)
+        )
+        .onTapGesture { showPopover = true }
+        .popover(isPresented: $showPopover) {
+            AnnotationPropertiesPopover(
+                annotation: annotation,
+                onSave: { noteText in /* update model */ },
+                onDelete: { /* delete from model */ },
+                onRecolor: { index, hex in /* update model */ }
+            )
+        }
+    }
+}
+```
+
+## Verdict Tags with Slide Picker
+
+Verdict tags are displayed as colored glass capsules. The MERGE verdict includes a slide picker for selecting which slide to merge with.
+
+```swift
+struct VerdictSection: View {
+    @Binding var verdict: SlideVerdict?
+    let availableSlides: [SlideInfo]
+    @Environment(\.colorScheme) private var colorScheme
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: AppTokens.Spacing.sm) {
+            Text("VERDICT").appLabel()
+
+            // Verdict tag buttons
+            GlassEffectContainer {
+                HStack(spacing: AppTokens.Spacing.xxs) {
+                    ForEach(Verdict.allCases, id: \.self) { v in
+                        Button {
+                            withAnimation(AppTokens.Motion.snappy) {
+                                verdict = SlideVerdict(verdict: v, context: defaultContext(for: v), noteText: "")
+                            }
+                        } label: {
+                            Text(v.rawValue)
+                                .font(AppTokens.Font.caption)
+                                .tracking(0.88)
+                                .foregroundStyle(verdict?.verdict == v ? verdictColor(v) : AppTokens.Color.textTertiary(for: colorScheme))
+                                .padding(.horizontal, AppTokens.Spacing.sm)
+                                .padding(.vertical, AppTokens.Spacing.xxs)
+                        }
+                        .buttonStyle(.plain)
+                        .glassEffect(
+                            verdict?.verdict == v
+                                ? .regular.tint(verdictColor(v).opacity(0.15)).interactive()
+                                : .clear,
+                            in: .capsule
+                        )
+                    }
+                }
+            }
+
+            // Contextual controls based on verdict type
+            if let v = verdict {
+                switch v.verdict {
+                case .merge:
+                    // Slide picker for merge target
+                    Picker("Merge with", selection: mergeTargetBinding) {
+                        ForEach(availableSlides) { slide in
+                            Text("Slide \(slide.number)").tag(slide.id)
+                        }
+                    }
+                    .pickerStyle(.menu)
+                case .revise:
+                    // Free text for revision instructions (explicit save)
+                    RevisionNoteEditor(
+                        initialText: v.noteText,
+                        onSave: { text in verdict?.noteText = text }
+                    )
+                default:
+                    EmptyView()
+                }
+            }
+        }
+    }
+}
+```
+
+## Key Takeaways (v3 Architecture)
 
 1. **`NavigationSplitView`** is the app shell — sidebar with `.ultraThinMaterial`, detail with workspace content
 2. **Sidebar is a router** — switches content based on `appState.currentView` and `appState.workspaceMode`
 3. **`DetailRouter`** maps app state to the correct detail view
-4. **Workspace toolbar** has file names, stat pills, mode toggle (comparison/review), export, and notes panel toggle
-5. **Notes panel** is a simple `if visible` HStack child with `.move(edge: .trailing)` transition
-6. **Title bar** uses `.toolbarBackgroundVisibility(.hidden)` + `titlebarAppearsTransparent` + `window.backgroundColor`
-7. **All animations** use `AppTokens.Motion.*` springs
-8. **All colors** come from `AppTokens.Color.*` with `ColorScheme` parameter
-9. **All labels** use `.appLabel()` modifier
-10. **No opaque backgrounds** on sidebar child views — frosted glass must show through
+4. **Workspace toolbar** has file names, stat pills, mode toggle (comparison/review), export, and panel toggle
+5. **Annotation panel** replaces simple notes panel — tool controls (draw/pin/text edit modes) and color picker live in the panel header
+6. **Pin overlay** uses `NormalizedPoint` + local `@State` drag offset for smooth dragging
+7. **Properties popover** on annotation list items — note editor, color picker, delete with explicit cancel/save buttons
+8. **Verdict tags** as colored glass capsules with typed context (slide picker for MERGE, free text for REVISE)
+9. **Explicit save pattern** on all note editors — prevents value-type binding single-character bug
+10. **Visual hint overlay** when tool mode is active but no items exist yet — dims content, shows instruction, uses `.allowsHitTesting(false)`
+11. **Title bar** uses `.toolbarBackgroundVisibility(.hidden)` + `titlebarAppearsTransparent` + `window.backgroundColor`
+12. **All animations** use `AppTokens.Motion.*` springs
+13. **All colors** come from `AppTokens.Color.*` with `ColorScheme` parameter
+14. **All labels** use `.appLabel()` modifier
+15. **No opaque backgrounds** on sidebar child views — frosted glass must show through

@@ -217,6 +217,29 @@ ScrollView {
 }
 ```
 
+## Visual Hint Overlay (Tool Mode Activation)
+
+When a tool mode is active (e.g., pin placement, draw box, text edit), show a dimmed overlay with a centered instruction message. Use `.allowsHitTesting(false)` so taps pass through to the content underneath. Show the hint only when no items of that type exist yet — once the user places their first annotation, the hint disappears (progressive disclosure).
+
+```swift
+// Overlay on the main content area, inside the ZStack
+if isPinMode && pinAnnotations.isEmpty {
+    VStack(spacing: AppTokens.Spacing.sm) {
+        Image(systemName: "mappin.and.ellipse")
+            .font(.system(size: 32))
+            .foregroundStyle(AppTokens.Color.textTertiary(for: colorScheme))
+        Text("Click to place a pin")
+            .font(AppTokens.Font.headingSmall)
+            .foregroundStyle(AppTokens.Color.textSecondary(for: colorScheme))
+    }
+    .frame(maxWidth: .infinity, maxHeight: .infinity)
+    .background(AppTokens.Color.background(for: colorScheme).opacity(0.5))
+    .allowsHitTesting(false)  // Critical — taps pass through to content
+}
+```
+
+This pattern works for any tool mode — swap the icon, message, and empty-check condition.
+
 ## Important: GlassEffectContainer Grouping
 
 Always wrap adjacent glass elements in a container to prevent sampling artifacts:

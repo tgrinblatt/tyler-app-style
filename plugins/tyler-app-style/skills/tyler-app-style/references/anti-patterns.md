@@ -56,3 +56,41 @@
 - **Never skip `.help()` tooltips on buttons** — all toolbar and glass buttons need tooltips
 - **Never forget `.contentShape(Rectangle())`** on tappable rows — ensures the full area is tappable
 - **Never skip hover states** — interactive elements should have `.onHover` with visual feedback
+
+## Value-Type Binding (Critical)
+
+- **Never use auto-saving `Binding` derived from value-type parameters in `ForEach`** — when `annotation` is a struct, `Binding<String>(get: { annotation.noteText }, set: { ... updateAnnotation ... })` causes a single-character input bug. Each keystroke triggers a re-render which recreates the binding, resetting the cursor and dropping characters.
+
+  **FIX**: Extract to a separate View struct with `@State` local text + `.onAppear` / `.onChange` sync, or use explicit save buttons (cancel / add note / save) instead of auto-save. The explicit save pattern is preferred because it also prevents accidental edits.
+
+  ```swift
+  // WRONG — auto-save binding on value type
+  ForEach(annotations) { annotation in
+      TextField("Note", text: Binding(
+          get: { annotation.noteText },
+          set: { model.updateAnnotation(id: annotation.id, noteText: $0) }
+      ))
+  }
+
+  // CORRECT — extracted view with local @State
+  struct NoteEditor: View {
+      let annotation: Annotation
+      let onSave: (String) -> Void
+      @State private var localText = ""
+      @Environment(\.dismiss) private var dismiss
+
+      var body: some View {
+          VStack {
+              TextEditor(text: $localText)
+              HStack {
+                  Button("Cancel") { dismiss() }
+                  Button(annotation.noteText.isEmpty ? "Add Note" : "Save") {
+                      onSave(localText)
+                      dismiss()
+                  }
+              }
+          }
+          .onAppear { localText = annotation.noteText }
+      }
+  }
+  ```

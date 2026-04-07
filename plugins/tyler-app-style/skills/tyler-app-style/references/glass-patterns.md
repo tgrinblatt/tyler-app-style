@@ -14,24 +14,26 @@ struct GlassButton: View {
 
     var body: some View {
         Button(action: action) {
-            HStack(spacing: NothingTokens.Spacing.xs) {
+            HStack(spacing: AppTokens.Spacing.xs) {
                 if let icon {
                     Image(systemName: icon)
                         .font(.system(size: 11, weight: .medium))
                 }
                 Text(label)
-                    .font(NothingTokens.Font.label)
+                    .font(AppTokens.Font.label)
                     .tracking(0.88)
                     .textCase(.uppercase)
             }
-            .foregroundStyle(isActive ? NothingTokens.Color.textDisplay : NothingTokens.Color.textSecondary)
-            .padding(.horizontal, NothingTokens.Spacing.md)
-            .padding(.vertical, NothingTokens.Spacing.sm - 2)
+            .foregroundStyle(isActive ? AppTokens.Color.textDisplay(for: colorScheme) : AppTokens.Color.textSecondary(for: colorScheme))
+            .padding(.horizontal, AppTokens.Spacing.md)
+            .padding(.vertical, AppTokens.Spacing.sm - 2)
         }
         .buttonStyle(.glass)
         .tint(isActive ? tint : .clear)
         .help(label)
     }
+
+    @Environment(\.colorScheme) private var colorScheme
 }
 ```
 
@@ -43,21 +45,22 @@ Used in toolbars to display key metrics with glass backing.
 struct StatPill: View {
     let value: String
     let label: String
+    @Environment(\.colorScheme) private var colorScheme
 
     var body: some View {
-        HStack(spacing: NothingTokens.Spacing.xs) {
+        HStack(spacing: AppTokens.Spacing.xs) {
             Text(value)
-                .font(NothingTokens.Font.numericSmall)
-                .foregroundStyle(NothingTokens.Color.textPrimary)
+                .font(AppTokens.Font.numericSmall)
+                .foregroundStyle(AppTokens.Color.textPrimary(for: colorScheme))
             Text(label)
-                .font(NothingTokens.Font.caption)
+                .font(AppTokens.Font.caption)
                 .tracking(0.88)
                 .textCase(.uppercase)
-                .foregroundStyle(NothingTokens.Color.textTertiary)
+                .foregroundStyle(AppTokens.Color.textTertiary(for: colorScheme))
         }
-        .padding(.horizontal, NothingTokens.Spacing.sm)
-        .padding(.vertical, NothingTokens.Spacing.xxs + 1)
-        .glassEffect(.regular.tint(NothingTokens.Color.surface.opacity(0.5)), in: .capsule)
+        .padding(.horizontal, AppTokens.Spacing.sm)
+        .padding(.vertical, AppTokens.Spacing.xxs + 1)
+        .glassEffect(.regular.tint(AppTokens.Color.surface(for: colorScheme).opacity(0.5)), in: .capsule)
     }
 }
 ```
@@ -73,12 +76,12 @@ struct ConnectionBadge: View {
 
     var body: some View {
         Text(label)
-            .font(NothingTokens.Font.caption)
+            .font(AppTokens.Font.caption)
             .tracking(0.88)
             .textCase(.uppercase)
             .foregroundStyle(color)
-            .padding(.horizontal, NothingTokens.Spacing.sm)
-            .padding(.vertical, NothingTokens.Spacing.xxs + 1)
+            .padding(.horizontal, AppTokens.Spacing.sm)
+            .padding(.vertical, AppTokens.Spacing.xxs + 1)
             .glassEffect(.regular.tint(color.opacity(0.15)), in: .capsule)
     }
 }
@@ -90,27 +93,27 @@ Segmented filter with interactive glass pills inside a `GlassEffectContainer`.
 
 ```swift
 GlassEffectContainer {
-    HStack(spacing: NothingTokens.Spacing.xxs) {
+    HStack(spacing: AppTokens.Spacing.xxs) {
         ForEach(FilterMode.allCases, id: \.self) { mode in
             Button {
-                withAnimation(NothingTokens.Motion.snappy) { filterMode = mode }
+                withAnimation(AppTokens.Motion.snappy) { filterMode = mode }
             } label: {
                 Text(mode.rawValue)
-                    .font(NothingTokens.Font.caption)
+                    .font(AppTokens.Font.caption)
                     .tracking(0.88)
                     .textCase(.uppercase)
                     .foregroundStyle(
                         filterMode == mode
-                            ? NothingTokens.Color.textDisplay
-                            : NothingTokens.Color.textTertiary
+                            ? AppTokens.Color.textDisplay(for: colorScheme)
+                            : AppTokens.Color.textTertiary(for: colorScheme)
                     )
-                    .padding(.horizontal, NothingTokens.Spacing.sm)
-                    .padding(.vertical, NothingTokens.Spacing.xs)
+                    .padding(.horizontal, AppTokens.Spacing.sm)
+                    .padding(.vertical, AppTokens.Spacing.xs)
             }
             .buttonStyle(.plain)
             .glassEffect(
                 filterMode == mode
-                    ? .regular.tint(NothingTokens.Color.accent.opacity(0.2)).interactive()
+                    ? .regular.tint(AppTokens.Color.accent.opacity(0.2)).interactive()
                     : .clear,
                 in: .capsule
             )
@@ -127,14 +130,14 @@ Large interactive areas with subtle glass backing.
 ```swift
 content
     .frame(maxWidth: .infinity, minHeight: 200)
-    .padding(NothingTokens.Spacing.lg)
+    .padding(AppTokens.Spacing.lg)
     .background(
-        RoundedRectangle(cornerRadius: NothingTokens.Radius.xl)
-            .fill(NothingTokens.Color.surface.opacity(0.6))
+        RoundedRectangle(cornerRadius: AppTokens.Radius.xl)
+            .fill(AppTokens.Color.surface(for: colorScheme).opacity(0.6))
     )
     .glassEffect(
-        .regular.tint(isLoaded ? NothingTokens.Color.accent.opacity(0.05) : .clear),
-        in: .rect(cornerRadius: NothingTokens.Radius.xl)
+        .regular.tint(isLoaded ? AppTokens.Color.accent.opacity(0.05) : .clear),
+        in: .rect(cornerRadius: AppTokens.Radius.xl)
     )
 ```
 
@@ -149,9 +152,69 @@ Circle()
     .overlay(
         Image(systemName: "arrow.left.and.right")
             .font(.system(size: 11, weight: .bold))
-            .foregroundStyle(NothingTokens.Color.textDisplay)
+            .foregroundStyle(AppTokens.Color.textDisplay(for: colorScheme))
     )
     .glassEffect(.regular.interactive(), in: .circle)
+```
+
+## Glass Pill Title
+
+A title label displayed as a floating glass pill, useful for overlay titles on content areas.
+
+```swift
+Text("Section Title")
+    .font(AppTokens.Font.headingSmall)
+    .foregroundStyle(AppTokens.Color.textDisplay(for: colorScheme))
+    .padding(.horizontal, AppTokens.Spacing.md)
+    .padding(.vertical, AppTokens.Spacing.xs)
+    .glassEffect(.regular.tint(AppTokens.Color.surface(for: colorScheme).opacity(0.3)), in: .capsule)
+```
+
+## Frosted Glass Sidebar
+
+Use `.ultraThinMaterial` on the sidebar background for a frosted glass effect. This is the preferred approach for sidebar backgrounds — it allows the app content to subtly show through.
+
+```swift
+NavigationSplitView {
+    VStack(spacing: 0) {
+        // Summary stats, filter bar, slide list, etc.
+        sidebarContent
+    }
+    .background(.ultraThinMaterial)  // Frosted glass
+    .navigationSplitViewColumnWidth(min: 280, ideal: 340, max: 500)
+} detail: {
+    detailContent
+}
+```
+
+**Critical**: Child views inside the sidebar must NOT set opaque `.background()` — this defeats the frosted effect. Use `.clear` or omit the background modifier entirely on sidebar child views.
+
+## Scroll Edge Fade (Gradient Overlay)
+
+Add a subtle fade at scroll edges to indicate more content is available:
+
+```swift
+ScrollView {
+    content
+}
+.overlay(alignment: .top) {
+    LinearGradient(
+        colors: [AppTokens.Color.background(for: colorScheme), .clear],
+        startPoint: .top,
+        endPoint: .bottom
+    )
+    .frame(height: 16)
+    .allowsHitTesting(false)
+}
+.overlay(alignment: .bottom) {
+    LinearGradient(
+        colors: [.clear, AppTokens.Color.background(for: colorScheme)],
+        startPoint: .top,
+        endPoint: .bottom
+    )
+    .frame(height: 16)
+    .allowsHitTesting(false)
+}
 ```
 
 ## Important: GlassEffectContainer Grouping

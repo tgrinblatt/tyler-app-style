@@ -1,48 +1,98 @@
 # Design Tokens — Complete Reference
 
-The full `NothingTokens.swift` file that should be included in every Tyler App Style project.
+The full `AppTokens.swift` file that should be included in every Tyler App Style project. Colors use the `func X(for scheme: ColorScheme)` pattern to support both dark and light modes.
 
 ```swift
-// NothingTokens.swift — Tyler App Style Design System
+// AppTokens.swift — Tyler App Style Design System
 // Nothing palette + Apple Liquid Glass hybrid.
 // All views MUST reference these tokens — no hardcoded colors, fonts, or spacing.
 
 import SwiftUI
 import AppKit
 
-enum NothingTokens {
+enum AppTokens {
 
-    // MARK: - Colors
+    // MARK: - Colors (ColorScheme-adaptive)
 
     enum Color {
         // Core palette
-        static let background = SwiftUI.Color(nsColor: NSColor(hex: "0A0A0A")!)
-        static let surface = SwiftUI.Color(nsColor: NSColor(hex: "111111")!)
-        static let surfaceElevated = SwiftUI.Color(nsColor: NSColor(hex: "1A1A1A")!)
-        static let border = SwiftUI.Color(nsColor: NSColor(hex: "222222")!)
-        static let borderStrong = SwiftUI.Color(nsColor: NSColor(hex: "333333")!)
+        static func background(for scheme: ColorScheme) -> SwiftUI.Color {
+            scheme == .dark
+                ? SwiftUI.Color(nsColor: NSColor(hex: "0A0A0A")!)
+                : SwiftUI.Color(nsColor: NSColor(hex: "FFFFFF")!)
+        }
+        static func surface(for scheme: ColorScheme) -> SwiftUI.Color {
+            scheme == .dark
+                ? SwiftUI.Color(nsColor: NSColor(hex: "111111")!)
+                : SwiftUI.Color(nsColor: NSColor(hex: "F5F5F5")!)
+        }
+        static func surfaceElevated(for scheme: ColorScheme) -> SwiftUI.Color {
+            scheme == .dark
+                ? SwiftUI.Color(nsColor: NSColor(hex: "1A1A1A")!)
+                : SwiftUI.Color(nsColor: NSColor(hex: "EBEBEB")!)
+        }
+        static func border(for scheme: ColorScheme) -> SwiftUI.Color {
+            scheme == .dark
+                ? SwiftUI.Color(nsColor: NSColor(hex: "222222")!)
+                : SwiftUI.Color(nsColor: NSColor(hex: "DDDDDD")!)
+        }
+        static func borderStrong(for scheme: ColorScheme) -> SwiftUI.Color {
+            scheme == .dark
+                ? SwiftUI.Color(nsColor: NSColor(hex: "333333")!)
+                : SwiftUI.Color(nsColor: NSColor(hex: "CCCCCC")!)
+        }
 
         // Text hierarchy
-        static let textPrimary = SwiftUI.Color(nsColor: NSColor(hex: "E8E8E8")!)
-        static let textDisplay = SwiftUI.Color.white
-        static let textSecondary = SwiftUI.Color(nsColor: NSColor(hex: "999999")!)
-        static let textTertiary = SwiftUI.Color(nsColor: NSColor(hex: "666666")!)
+        static func textPrimary(for scheme: ColorScheme) -> SwiftUI.Color {
+            scheme == .dark
+                ? SwiftUI.Color(nsColor: NSColor(hex: "E8E8E8")!)
+                : SwiftUI.Color(nsColor: NSColor(hex: "1A1A1A")!)
+        }
+        static func textDisplay(for scheme: ColorScheme) -> SwiftUI.Color {
+            scheme == .dark ? .white : .black
+        }
+        static func textSecondary(for scheme: ColorScheme) -> SwiftUI.Color {
+            scheme == .dark
+                ? SwiftUI.Color(nsColor: NSColor(hex: "999999")!)
+                : SwiftUI.Color(nsColor: NSColor(hex: "666666")!)
+        }
+        static func textTertiary(for scheme: ColorScheme) -> SwiftUI.Color {
+            scheme == .dark
+                ? SwiftUI.Color(nsColor: NSColor(hex: "666666")!)
+                : SwiftUI.Color(nsColor: NSColor(hex: "999999")!)
+        }
 
-        // Accent
-        static let accent = SwiftUI.Color(nsColor: NSColor(hex: "F47421")!)
-        static let accentDim = SwiftUI.Color(nsColor: NSColor(hex: "3D2510")!)
-        static let interactive = SwiftUI.Color(nsColor: NSColor(hex: "F47421")!)
+        // Accent — used sparingly for selected/focused/interactive states
+        static let accent = SwiftUI.Color(nsColor: NSColor(hex: "E5600A")!)
+        static func accentDim(for scheme: ColorScheme) -> SwiftUI.Color {
+            scheme == .dark
+                ? SwiftUI.Color(nsColor: NSColor(hex: "3D2510")!)
+                : SwiftUI.Color(nsColor: NSColor(hex: "FFF0E6")!)
+        }
+        static let interactive = SwiftUI.Color(nsColor: NSColor(hex: "E5600A")!)
 
-        // Status
-        static let destructive = SwiftUI.Color(nsColor: NSColor(hex: "D71921")!)
-        static let warning = SwiftUI.Color(nsColor: NSColor(hex: "D4A843")!)
-        static let success = SwiftUI.Color(nsColor: NSColor(hex: "4A9E5C")!)
-        static let redesigned = SwiftUI.Color(nsColor: NSColor(hex: "4A8ED4")!)
+        // Status — same in both schemes
+        static let destructive = SwiftUI.Color(nsColor: NSColor(hex: "CC1018")!)
+        static let warning = SwiftUI.Color(nsColor: NSColor(hex: "B8912E")!)
+        static let success = SwiftUI.Color(nsColor: NSColor(hex: "2D8A3E")!)
+        static let info = SwiftUI.Color(nsColor: NSColor(hex: "2E6FBA")!)
 
         // Diff backgrounds
-        static let diffAddedBg = SwiftUI.Color(nsColor: NSColor(hex: "1A2E1A")!)
-        static let diffRemovedBg = SwiftUI.Color(nsColor: NSColor(hex: "2E1A1A")!)
-        static let diffChangedBg = SwiftUI.Color(nsColor: NSColor(hex: "1A1A2E")!)
+        static func diffAddedBg(for scheme: ColorScheme) -> SwiftUI.Color {
+            scheme == .dark
+                ? SwiftUI.Color(nsColor: NSColor(hex: "1A2E1A")!)
+                : SwiftUI.Color(nsColor: NSColor(hex: "E6F5E6")!)
+        }
+        static func diffRemovedBg(for scheme: ColorScheme) -> SwiftUI.Color {
+            scheme == .dark
+                ? SwiftUI.Color(nsColor: NSColor(hex: "2E1A1A")!)
+                : SwiftUI.Color(nsColor: NSColor(hex: "F5E6E6")!)
+        }
+        static func diffChangedBg(for scheme: ColorScheme) -> SwiftUI.Color {
+            scheme == .dark
+                ? SwiftUI.Color(nsColor: NSColor(hex: "1A1A2E")!)
+                : SwiftUI.Color(nsColor: NSColor(hex: "E6E6F5")!)
+        }
     }
 
     // MARK: - Typography
@@ -60,6 +110,26 @@ enum NothingTokens {
         static let numeric: SwiftUI.Font = .system(size: 24, weight: .bold, design: .monospaced)
         static let numericSmall: SwiftUI.Font = .system(size: 14, weight: .bold, design: .monospaced)
     }
+
+    // MARK: - NSFont Equivalents (for AppKit / NSViewRepresentable)
+
+    // Use these when building NSViewRepresentable wrappers or custom AppKit drawing.
+    // They mirror the SwiftUI Font tokens above.
+}
+
+extension NSFont {
+    static let appBodyLarge = NSFont.monospacedSystemFont(ofSize: 15, weight: .regular)
+    static let appBodySmall = NSFont.monospacedSystemFont(ofSize: 12, weight: .regular)
+    static let appCaption = NSFont.monospacedSystemFont(ofSize: 10, weight: .regular)
+    static let appLabel = NSFont.systemFont(ofSize: 11, weight: .medium)
+    static let appHeadingLarge = NSFont.systemFont(ofSize: 17, weight: .medium)
+    static let appHeadingSmall = NSFont.systemFont(ofSize: 13, weight: .medium)
+    static let appNumeric = NSFont.monospacedSystemFont(ofSize: 24, weight: .bold)
+    static let appNumericSmall = NSFont.monospacedSystemFont(ofSize: 14, weight: .bold)
+    static let appDisplaySmall = NSFont.systemFont(ofSize: 20, weight: .semibold)
+}
+
+enum AppTokens_continued {
 
     // MARK: - Spacing (8pt grid)
 
@@ -102,25 +172,29 @@ enum NothingTokens {
 
 // MARK: - View Modifiers
 
-struct NothingLabelStyle: ViewModifier {
+struct AppLabelStyle: ViewModifier {
+    @Environment(\.colorScheme) private var colorScheme
+
     func body(content: Content) -> some View {
         content
-            .font(NothingTokens.Font.label)
+            .font(AppTokens.Font.label)
             .tracking(0.88)
             .textCase(.uppercase)
-            .foregroundStyle(NothingTokens.Color.textSecondary)
+            .foregroundStyle(AppTokens.Color.textSecondary(for: colorScheme))
     }
 }
 
 extension View {
-    func nothingLabel() -> some View { modifier(NothingLabelStyle()) }
+    func appLabel() -> some View { modifier(AppLabelStyle()) }
 }
 
 // MARK: - Segmented Progress Bar
 
-struct NothingProgressBar: View {
+struct SegmentedProgressBar: View {
     let progress: Double
     let segments: Int
+    @Environment(\.colorScheme) private var colorScheme
+
     init(progress: Double, segments: Int = 24) {
         self.progress = progress
         self.segments = segments
@@ -130,7 +204,7 @@ struct NothingProgressBar: View {
             let filled = Int(progress * Double(segments))
             ForEach(0..<segments, id: \.self) { i in
                 RoundedRectangle(cornerRadius: 1)
-                    .fill(i < filled ? NothingTokens.Color.accent : NothingTokens.Color.borderStrong)
+                    .fill(i < filled ? AppTokens.Color.accent : AppTokens.Color.borderStrong(for: colorScheme))
                     .frame(height: 6)
             }
         }

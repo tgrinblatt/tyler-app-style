@@ -14,6 +14,13 @@
 - **Never use glass tint opacity > 0.3** — glass should be barely visible, not colored
 - **Never use `.background(.regularMaterial)` or `.background(.ultraThinMaterial)`** on content areas — materials are for chrome only (sidebar is chrome, so `.ultraThinMaterial` is correct there)
 - **Never use `rotationEffect` on glass views** — causes shape morphing bugs (use UIKit bridge if needed)
+- **Never expect a plain-text `ToolbarItem` to render without a glass pill on macOS 26** — toolbar items get auto-glassed. To render the app name as plain text in the toolbar, wrap it in a `ToolbarItemGroup` with `.sharedBackgroundVisibility(.hidden)`. See `glass-patterns.md → Toolbar Auto-Glass`.
+
+## Toolbar
+
+- **Never put the app name and the page name in the same `ToolbarItem`** — they end up in a single combined glass pill, which reads as one title. Split into `.navigation` (app name, no pill) and `.principal` (page name, pill).
+- **Never put stat pills, Export buttons, or mode toggles in the window toolbar** — those live in the `CanvasActionBar` below the toolbar. The window toolbar is reserved for identity (app name + page name) and system icons (inspector toggle, etc.).
+- **Never build a custom settings button** — no gear in the toolbar, no gear in the sidebar footer. Use the SwiftUI `Settings { }` scene so the standard `AppName → Settings…` (⌘,) item appears in the macOS menu bar automatically. See `layout-patterns.md → Settings`.
 
 ## Title Bar
 
@@ -45,6 +52,8 @@
 - **Never use lowercase for labels/section headers** — always ALL-CAPS with 0.88 tracking via `.appLabel()`
 - **Never use sans-serif for data/numbers** — always monospace (`bodySmall`, `numericSmall`, etc.)
 - **Never use monospace for headings** — always sans-serif (`displaySmall`, `headingSmall`, etc.)
+- **Never rely on Geist being installed system-wide** — always bundle it in `Resources/Fonts/` with `ATSApplicationFontsPath = "Fonts"` in Info.plist. See `design-tokens.md → Font Bundling`.
+- **Never declare `static let` NSFont constants without `nonisolated(unsafe)` under Swift 6** — NSFont is not Sendable, so strict concurrency rejects them with *"static property is not concurrency-safe"*. The `nonisolated(unsafe)` prefix is the approved escape for immutable AppKit singletons.
 
 ## Spacing
 

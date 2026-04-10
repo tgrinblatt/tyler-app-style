@@ -240,6 +240,38 @@ if isPinMode && pinAnnotations.isEmpty {
 
 This pattern works for any tool mode — swap the icon, message, and empty-check condition.
 
+## Toolbar Auto-Glass (and how to opt out)
+
+On macOS 26, **every `ToolbarItem` is automatically wrapped in its own glass
+pill**. This is the right default for interactive icons and semantic-state
+items (the current page name, toggle buttons, filter chips), but it's wrong
+for plain-text labels like the app name.
+
+There is no per-item background modifier that disables this. The only
+reliable escape hatch is wrapping the item in a `ToolbarItemGroup` and
+setting `.sharedBackgroundVisibility(.hidden)`:
+
+```swift
+// WRONG — lone ToolbarItem with plain Text: still gets pilled
+ToolbarItem(placement: .navigation) {
+    Text("StyleDemo")
+        .font(AppTokens.Font.displaySmall)
+}
+
+// CORRECT — ToolbarItemGroup with shared background hidden
+ToolbarItemGroup(placement: .navigation) {
+    Text("StyleDemo")
+        .font(AppTokens.Font.displaySmall)
+        .padding(.leading, AppTokens.Spacing.md)  // aligns with canvas content
+}
+.sharedBackgroundVisibility(.hidden)
+```
+
+Use this only for the **app name** on the leading edge. Every other toolbar
+item should keep its glass pill. See `layout-patterns.md → Window Toolbar
+Pattern` for the full three-slot layout (app name left, page name center,
+system icons right).
+
 ## Important: GlassEffectContainer Grouping
 
 Always wrap adjacent glass elements in a container to prevent sampling artifacts:

@@ -119,44 +119,59 @@ enum AppTokens {
 
 ### Typography
 
-Use **Geist** (sans-serif) for headings/labels and **GeistMono** (monospace) for data/numbers/body. Fall back to system fonts if Geist is not bundled.
+Use **Geist** (sans-serif) for headings/labels, **Geist Mono** (monospace) for
+data/numbers/body, and **Geist Pixel** (Circle / Square / Triangle / Line /
+Grid variants) for decorative / large-display moments (e.g. stopwatch
+numerics). Bundle the fonts — see `references/design-tokens.md → Font
+Bundling`.
 
 ```swift
 enum Font {
     // Display — bold sans-serif for titles
-    static let displayLarge: SwiftUI.Font = .system(size: 42, weight: .bold)
-    static let displayMedium: SwiftUI.Font = .system(size: 28, weight: .bold)
-    static let displaySmall: SwiftUI.Font = .system(size: 20, weight: .semibold)
+    static let displayLarge: SwiftUI.Font  = .custom("Geist-Bold",        size: 42)
+    static let displayMedium: SwiftUI.Font = .custom("Geist-Bold",        size: 28)
+    static let displaySmall: SwiftUI.Font  = .custom("Geist-SemiBold",    size: 20)
 
     // Headings
-    static let headingLarge: SwiftUI.Font = .system(size: 17, weight: .medium)
-    static let headingSmall: SwiftUI.Font = .system(size: 13, weight: .medium)
+    static let headingLarge: SwiftUI.Font  = .custom("Geist-Medium",      size: 17)
+    static let headingSmall: SwiftUI.Font  = .custom("Geist-Medium",      size: 13)
 
     // Body — monospace for data
-    static let bodyLarge: SwiftUI.Font = .system(size: 15, weight: .regular, design: .monospaced)
-    static let bodySmall: SwiftUI.Font = .system(size: 12, weight: .regular, design: .monospaced)
+    static let bodyLarge: SwiftUI.Font     = .custom("GeistMono-Regular", size: 15)
+    static let bodySmall: SwiftUI.Font     = .custom("GeistMono-Regular", size: 12)
 
     // Caption & Label
-    static let caption: SwiftUI.Font = .system(size: 10, weight: .regular, design: .monospaced)
-    static let label: SwiftUI.Font = .system(size: 11, weight: .medium)  // ALL-CAPS + 0.88 tracking
+    static let caption: SwiftUI.Font       = .custom("GeistMono-Regular", size: 10)
+    static let label: SwiftUI.Font         = .custom("Geist-Medium",      size: 11)  // ALL-CAPS + 0.88 tracking
 
     // Numeric — bold monospace for stats
-    static let numeric: SwiftUI.Font = .system(size: 24, weight: .bold, design: .monospaced)
-    static let numericSmall: SwiftUI.Font = .system(size: 14, weight: .bold, design: .monospaced)
+    static let numeric: SwiftUI.Font       = .custom("GeistMono-Bold",    size: 24)
+    static let numericSmall: SwiftUI.Font  = .custom("GeistMono-Bold",    size: 14)
 }
 ```
 
+`SwiftUI` silently falls back to SF if a PostScript name is missing, so the
+tokens never hard-fail — but always bundle the fonts so the app looks
+identical everywhere.
+
+For free-form Geist use (Geist Pixel Circle at 140pt for a stopwatch, etc.)
+there's a `FontFamily` helper — see `references/design-tokens.md`.
+
 ### NSFont Equivalents (for AppKit / NSViewRepresentable contexts)
 
-When building `NSViewRepresentable` wrappers (e.g. for `NSTextView`, `NSTextField`, or custom AppKit drawing), use `NSFont` equivalents of the SwiftUI tokens:
+When building `NSViewRepresentable` wrappers (e.g. for `NSTextView`,
+`NSTextField`, or custom AppKit drawing), use `NSFont` equivalents of the
+SwiftUI tokens. **Under Swift 6 strict concurrency these MUST be marked
+`nonisolated(unsafe)`** — NSFont is not Sendable, so without the annotation
+every static fails with *"static property is not concurrency-safe"*:
 
 ```swift
 extension NSFont {
-    static let appBodySmall = NSFont.monospacedSystemFont(ofSize: 12, weight: .regular)
-    static let appCaption = NSFont.monospacedSystemFont(ofSize: 10, weight: .regular)
-    static let appLabel = NSFont.systemFont(ofSize: 11, weight: .medium)
-    static let appHeadingSmall = NSFont.systemFont(ofSize: 13, weight: .medium)
-    static let appNumericSmall = NSFont.monospacedSystemFont(ofSize: 14, weight: .bold)
+    nonisolated(unsafe) static let appBodySmall     = NSFont.monospacedSystemFont(ofSize: 12, weight: .regular)
+    nonisolated(unsafe) static let appCaption       = NSFont.monospacedSystemFont(ofSize: 10, weight: .regular)
+    nonisolated(unsafe) static let appLabel         = NSFont.systemFont(ofSize: 11, weight: .medium)
+    nonisolated(unsafe) static let appHeadingSmall  = NSFont.systemFont(ofSize: 13, weight: .medium)
+    nonisolated(unsafe) static let appNumericSmall  = NSFont.monospacedSystemFont(ofSize: 14, weight: .bold)
 }
 ```
 
@@ -344,6 +359,78 @@ struct GlassButton: View {
 }
 ```
 
+### Window Toolbar Pattern (load-bearing across every app)
+
+The window toolbar has **three slots** with specific semantics. Every Tyler
+App Style app uses this exact shape:
+
+| Slot | Placement | Contents | Glass? |
+|---|---|---|---|
+| Left | `.navigation` inside `ToolbarItemGroup` + `.sharedBackgroundVisibility(.hidden)` | **App name** as plain display text | **No** |
+| Center | `.principal` | **Current page name** (ALL-CAPS label with horizontal padding) | **Yes** (auto) |
+| Right | `.automatic` | System-style icon buttons (inspector toggle, etc.) | **Yes** |
+
+**Stat pills, Export, mode toggles do NOT live in the window toolbar.** They
+live in a `CanvasActionBar` below the toolbar. See
+`references/layout-patterns.md → Canvas Action Bar`.
+
+```swift
+@ToolbarContentBuilder
+var windowToolbar: some ToolbarContent {
+    ToolbarItemGroup(placement: .navigation) {
+        Text("StyleDemo")
+            .font(AppTokens.Font.displaySmall)
+            .foregroundStyle(AppTokens.Color.textDisplay(for: colorScheme))
+            .padding(.leading, AppTokens.Spacing.md)
+    }
+    .sharedBackgroundVisibility(.hidden)  // opt out of macOS 26 auto-glass
+
+    ToolbarItem(placement: .principal) {
+        Text(currentPage.title)
+            .font(AppTokens.Font.label)
+            .tracking(0.88)
+            .textCase(.uppercase)
+            .foregroundStyle(AppTokens.Color.textDisplay(for: colorScheme))
+            .padding(.horizontal, AppTokens.Spacing.md)
+            .padding(.vertical, AppTokens.Spacing.xs)
+    }
+
+    ToolbarItem(placement: .automatic) {
+        Button { inspectorVisible.toggle() } label: {
+            Image(systemName: "sidebar.trailing")
+                .symbolVariant(inspectorVisible ? .none : .slash)
+        }
+        .help("Toggle Inspector")
+    }
+}
+```
+
+### Settings — use the `Settings` Scene, not a toolbar gear
+
+App-level settings live in the **macOS app menu** (`⌘,`). Never add a gear
+icon to the toolbar or a settings button to the sidebar footer. SwiftUI's
+`Settings { }` scene adds the standard "Settings…" item to the menu bar
+automatically:
+
+```swift
+@main
+struct MyApp: App {
+    @State private var settings = AppSettings()
+    var body: some Scene {
+        WindowGroup { ContentView().environment(settings)
+            .preferredColorScheme(settings.appearance.preferredColorScheme) }
+        Settings { SettingsPanel(settings: settings)
+            .preferredColorScheme(settings.appearance.preferredColorScheme) }
+    }
+}
+```
+
+The `SettingsPanel` itself mirrors the main app shape — its own frosted
+sidebar + detail area, fixed at ~760×520, no in-view Done button (close via
+⌘W / red traffic light). See `references/layout-patterns.md → Settings` for
+the full panel implementation plus the `AppSettings` / `AppearanceMode`
+observable pattern for System / Light / Dark override.
+
 ### Floating Sidebar Layout with Frosted Glass
 
 ```swift
@@ -507,6 +594,11 @@ For apps with annotation/review workflows (document review, design critique, sli
 10. **Do not skip the `.help()` tooltip** on toolbar buttons
 11. **Do not use `.windowToolbarStyle(.unified)` without `.toolbarBackgroundVisibility(.hidden)`** — causes grey title bar
 12. **Do not override sidebar background with opaque colors** when using `.ultraThinMaterial` — defeats frosted glass
+13. **Do not put the app name and the page name in the same `ToolbarItem`** — they collapse into a single combined glass pill. Split into `.navigation` (no pill) + `.principal` (pill). See `references/anti-patterns.md → Toolbar`.
+14. **Do not put stat pills, Export buttons, or mode toggles in the window toolbar** — those live in the `CanvasActionBar`. The window toolbar is reserved for app identity (name + page) and system icons.
+15. **Do not build a custom settings button** — no gear in the toolbar, no gear in the sidebar footer. Use the SwiftUI `Settings { }` scene for the standard `⌘,` menu bar item.
+16. **Do not rely on Geist being installed system-wide** — always bundle it in `Resources/Fonts/` with `ATSApplicationFontsPath = "Fonts"` in Info.plist.
+17. **Do not declare `static let` NSFont constants without `nonisolated(unsafe)`** under Swift 6 — NSFont is not Sendable and strict concurrency will reject them.
 
 ## Color Usage Quick Reference (Dark / Light)
 

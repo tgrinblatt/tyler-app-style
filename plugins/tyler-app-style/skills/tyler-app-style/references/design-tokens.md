@@ -96,19 +96,48 @@ enum AppTokens {
     }
 
     // MARK: - Typography
+    //
+    // Geist, Geist Mono, and Geist Pixel are the authoritative families. Bundle
+    // them in Resources/Fonts/ and set `ATSApplicationFontsPath = "Fonts"` in
+    // Info.plist (see "Font Bundling" below). SwiftUI silently falls back to
+    // SF if a PostScript name is missing, so these tokens never hard-fail on a
+    // machine without the fonts — but always ship them.
 
     enum Font {
-        static let displayLarge: SwiftUI.Font = .system(size: 42, weight: .bold)
-        static let displayMedium: SwiftUI.Font = .system(size: 28, weight: .bold)
-        static let displaySmall: SwiftUI.Font = .system(size: 20, weight: .semibold)
-        static let headingLarge: SwiftUI.Font = .system(size: 17, weight: .medium)
-        static let headingSmall: SwiftUI.Font = .system(size: 13, weight: .medium)
-        static let bodyLarge: SwiftUI.Font = .system(size: 15, weight: .regular, design: .monospaced)
-        static let bodySmall: SwiftUI.Font = .system(size: 12, weight: .regular, design: .monospaced)
-        static let caption: SwiftUI.Font = .system(size: 10, weight: .regular, design: .monospaced)
-        static let label: SwiftUI.Font = .system(size: 11, weight: .medium)
-        static let numeric: SwiftUI.Font = .system(size: 24, weight: .bold, design: .monospaced)
-        static let numericSmall: SwiftUI.Font = .system(size: 14, weight: .bold, design: .monospaced)
+        static let displayLarge: SwiftUI.Font  = .custom("Geist-Bold",        size: 42)
+        static let displayMedium: SwiftUI.Font = .custom("Geist-Bold",        size: 28)
+        static let displaySmall: SwiftUI.Font  = .custom("Geist-SemiBold",    size: 20)
+        static let headingLarge: SwiftUI.Font  = .custom("Geist-Medium",      size: 17)
+        static let headingSmall: SwiftUI.Font  = .custom("Geist-Medium",      size: 13)
+        static let bodyLarge: SwiftUI.Font     = .custom("GeistMono-Regular", size: 15)
+        static let bodySmall: SwiftUI.Font     = .custom("GeistMono-Regular", size: 12)
+        static let caption: SwiftUI.Font       = .custom("GeistMono-Regular", size: 10)
+        static let label: SwiftUI.Font         = .custom("Geist-Medium",      size: 11)
+        static let numeric: SwiftUI.Font       = .custom("GeistMono-Bold",    size: 24)
+        static let numericSmall: SwiftUI.Font  = .custom("GeistMono-Bold",    size: 14)
+    }
+
+    /// Free-form Geist access for views that don't use a semantic token
+    /// (e.g. a large numeric display in GeistPixel-Circle at 140pt).
+    enum FontFamily {
+        static func geist(_ weight: String = "Regular", size: CGFloat) -> SwiftUI.Font {
+            .custom("Geist-\(weight)", size: size)
+        }
+        static func geistMono(_ weight: String = "Regular", size: CGFloat) -> SwiftUI.Font {
+            .custom("GeistMono-\(weight)", size: size)
+        }
+        static func geistPixel(_ variant: PixelVariant, size: CGFloat) -> SwiftUI.Font {
+            .custom("GeistPixel-\(variant.rawValue)", size: size)
+        }
+
+        enum PixelVariant: String, CaseIterable, Identifiable {
+            case circle   = "Circle"
+            case square   = "Square"
+            case triangle = "Triangle"
+            case line     = "Line"
+            case grid     = "Grid"
+            var id: String { rawValue }
+        }
     }
 
     // MARK: - NSFont Equivalents (for AppKit / NSViewRepresentable)
@@ -117,16 +146,21 @@ enum AppTokens {
     // They mirror the SwiftUI Font tokens above.
 }
 
+// IMPORTANT (Swift 6): NSFont is not Sendable, so global static NSFont
+// constants must be marked `nonisolated(unsafe)` under strict concurrency.
+// Without it, every token below fails to compile with
+// "static property is not concurrency-safe because non-'Sendable' type
+// 'NSFont' may have shared mutable state".
 extension NSFont {
-    static let appBodyLarge = NSFont.monospacedSystemFont(ofSize: 15, weight: .regular)
-    static let appBodySmall = NSFont.monospacedSystemFont(ofSize: 12, weight: .regular)
-    static let appCaption = NSFont.monospacedSystemFont(ofSize: 10, weight: .regular)
-    static let appLabel = NSFont.systemFont(ofSize: 11, weight: .medium)
-    static let appHeadingLarge = NSFont.systemFont(ofSize: 17, weight: .medium)
-    static let appHeadingSmall = NSFont.systemFont(ofSize: 13, weight: .medium)
-    static let appNumeric = NSFont.monospacedSystemFont(ofSize: 24, weight: .bold)
-    static let appNumericSmall = NSFont.monospacedSystemFont(ofSize: 14, weight: .bold)
-    static let appDisplaySmall = NSFont.systemFont(ofSize: 20, weight: .semibold)
+    nonisolated(unsafe) static let appBodyLarge     = NSFont.monospacedSystemFont(ofSize: 15, weight: .regular)
+    nonisolated(unsafe) static let appBodySmall     = NSFont.monospacedSystemFont(ofSize: 12, weight: .regular)
+    nonisolated(unsafe) static let appCaption       = NSFont.monospacedSystemFont(ofSize: 10, weight: .regular)
+    nonisolated(unsafe) static let appLabel         = NSFont.systemFont(ofSize: 11, weight: .medium)
+    nonisolated(unsafe) static let appHeadingLarge  = NSFont.systemFont(ofSize: 17, weight: .medium)
+    nonisolated(unsafe) static let appHeadingSmall  = NSFont.systemFont(ofSize: 13, weight: .medium)
+    nonisolated(unsafe) static let appNumeric       = NSFont.monospacedSystemFont(ofSize: 24, weight: .bold)
+    nonisolated(unsafe) static let appNumericSmall  = NSFont.monospacedSystemFont(ofSize: 14, weight: .bold)
+    nonisolated(unsafe) static let appDisplaySmall  = NSFont.systemFont(ofSize: 20, weight: .semibold)
 }
 
 enum AppTokens_continued {
@@ -228,3 +262,47 @@ extension NSColor {
     }
 }
 ```
+
+## Font Bundling
+
+Every Tyler App Style app must ship the Geist family bundled in the app
+binary — never rely on the fonts being installed on the user's machine.
+
+**Required files in `Resources/Fonts/`:**
+
+| File | PostScript instances |
+|---|---|
+| `Geist[wght].ttf` | `Geist-Thin/ExtraLight/Light/Regular/Medium/SemiBold/Bold/ExtraBold/Black` |
+| `Geist-Italic[wght].ttf` | italic counterparts |
+| `GeistMono[wght].ttf` | `GeistMono-*` (same weights) |
+| `GeistMono-Italic[wght].ttf` | italic counterparts |
+| `GeistPixel-Circle.otf` | `GeistPixel-Circle` |
+| `GeistPixel-Square.otf` | `GeistPixel-Square` |
+| `GeistPixel-Triangle.otf` | `GeistPixel-Triangle` |
+| `GeistPixel-Line.otf` | `GeistPixel-Line` |
+| `GeistPixel-Grid.otf` | `GeistPixel-Grid` |
+
+**Info.plist key** (non-negotiable — without it the bundled files don't register):
+
+```xml
+<key>ATSApplicationFontsPath</key>
+<string>Fonts</string>
+```
+
+**pbxproj setup:** add `Fonts/` as a **folder reference** (blue folder,
+`lastKnownFileType = folder`) inside the Resources group, and include it
+in the target's `PBXResourcesBuildPhase`. A folder reference picks up
+every file in the directory automatically — no need to register each
+`.ttf` / `.otf` individually.
+
+At launch, AppKit reads `ATSApplicationFontsPath`, walks
+`MyApp.app/Contents/Resources/Fonts/`, and registers every font file
+with CoreText. The PostScript names above then resolve through
+`.custom("Geist-Bold", size:)` etc.
+
+## Fonts are OFL
+
+Geist and Geist Pixel ship under the SIL Open Font License. Bundling is
+explicitly permitted; no attribution needed in UI, but include the
+license text in any open-source release.
+

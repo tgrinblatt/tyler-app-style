@@ -58,7 +58,7 @@ struct ContentView: View {
                 .navigationSplitViewColumnWidth(min: 72, ideal: 300, max: 360)
         } detail: {
             HStack(spacing: 0) {
-                CanvasContainer(title: "StyleDemo", subtitle: selected.title) {
+                CanvasContainer {
                     showcaseView(for: selected)
                 }
                 .frame(maxWidth: .infinity)
@@ -103,18 +103,17 @@ struct ContentView: View {
 
     @ToolbarContentBuilder
     private var canvasToolbar: some ToolbarContent {
-        ToolbarItem(placement: .automatic) {
-            GlassEffectContainer {
-                HStack(spacing: AppTokens.Spacing.sm) {
-                    StatPill(value: "\(Showcase.allCases.count)", label: "SHOWCASES")
-                    StatPill(value: "2", label: "SCHEMES")
-                    StatPill(value: "1", label: "ACCENT")
-                }
+        ToolbarItem(placement: .principal) {
+            HStack(alignment: .firstTextBaseline, spacing: AppTokens.Spacing.md) {
+                Text("StyleDemo")
+                    .font(AppTokens.Font.displaySmall)
+                    .foregroundStyle(AppTokens.Color.textDisplay(for: colorScheme))
+                Text(selected.title)
+                    .font(AppTokens.Font.label)
+                    .tracking(0.88)
+                    .textCase(.uppercase)
+                    .foregroundStyle(AppTokens.Color.textTertiary(for: colorScheme))
             }
-        }
-
-        ToolbarItem(placement: .automatic) {
-            GlassButton(label: "Export Mock", icon: "square.and.arrow.up") { }
         }
 
         ToolbarItem(placement: .automatic) {

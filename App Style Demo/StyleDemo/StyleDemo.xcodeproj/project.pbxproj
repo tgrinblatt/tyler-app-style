@@ -22,7 +22,6 @@
 		AAAA000000000000000001AC /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000AC /* SidebarView.swift */; };
 		AAAA000000000000000001AD /* SidebarRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000AD /* SidebarRow.swift */; };
 		AAAA000000000000000001AE /* SidebarSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000AE /* SidebarSearch.swift */; };
-		AAAA000000000000000001AF /* CanvasHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000AF /* CanvasHeader.swift */; };
 		AAAA000000000000000001B0 /* CanvasContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000B0 /* CanvasContainer.swift */; };
 		AAAA000000000000000001B1 /* OverviewShowcase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000B1 /* OverviewShowcase.swift */; };
 		AAAA000000000000000001B2 /* ButtonsShowcase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000B2 /* ButtonsShowcase.swift */; };
@@ -56,7 +55,6 @@
 		AAAA000000000000000000AC /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
 		AAAA000000000000000000AD /* SidebarRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarRow.swift; sourceTree = "<group>"; };
 		AAAA000000000000000000AE /* SidebarSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarSearch.swift; sourceTree = "<group>"; };
-		AAAA000000000000000000AF /* CanvasHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasHeader.swift; sourceTree = "<group>"; };
 		AAAA000000000000000000B0 /* CanvasContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasContainer.swift; sourceTree = "<group>"; };
 		AAAA000000000000000000B1 /* OverviewShowcase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewShowcase.swift; sourceTree = "<group>"; };
 		AAAA000000000000000000B2 /* ButtonsShowcase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsShowcase.swift; sourceTree = "<group>"; };
@@ -168,7 +166,6 @@
 		AAAA00000000000000000013 /* Canvas */ = {
 			isa = PBXGroup;
 			children = (
-				AAAA000000000000000000AF /* CanvasHeader.swift */,
 				AAAA000000000000000000B0 /* CanvasContainer.swift */,
 			);
 			path = Canvas;
@@ -291,7 +288,6 @@
 				AAAA000000000000000001AC /* SidebarView.swift in Sources */,
 				AAAA000000000000000001AD /* SidebarRow.swift in Sources */,
 				AAAA000000000000000001AE /* SidebarSearch.swift in Sources */,
-				AAAA000000000000000001AF /* CanvasHeader.swift in Sources */,
 				AAAA000000000000000001B0 /* CanvasContainer.swift in Sources */,
 				AAAA000000000000000001B1 /* OverviewShowcase.swift in Sources */,
 				AAAA000000000000000001B2 /* ButtonsShowcase.swift in Sources */,

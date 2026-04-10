@@ -16,6 +16,13 @@ struct StyleDemoApp: App {
         }
         .defaultSize(width: 1440, height: 900)
         .windowStyle(.hiddenTitleBar)
+
+        // Adds the standard "Settings..." item (Cmd+,) to the StyleDemo
+        // app menu in the menu bar.
+        Settings {
+            SettingsPanel(settings: settings)
+                .preferredColorScheme(settings.appearance.preferredColorScheme)
+        }
     }
 }
 

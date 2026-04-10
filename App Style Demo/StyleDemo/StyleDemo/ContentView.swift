@@ -48,19 +48,14 @@ struct ContentView: View {
     @State private var selected: Showcase = .overview
     @State private var searchText: String = ""
     @State private var inspectorVisible: Bool = false
-    @State private var settingsVisible: Bool = false
     @State private var columnVisibility: NavigationSplitViewVisibility = .all
     @Environment(\.colorScheme) private var colorScheme
     @Environment(AppSettings.self) private var settings
 
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
-            SidebarView(
-                selected: $selected,
-                searchText: $searchText,
-                onOpenSettings: { settingsVisible = true }
-            )
-            .navigationSplitViewColumnWidth(min: 72, ideal: 300, max: 360)
+            SidebarView(selected: $selected, searchText: $searchText)
+                .navigationSplitViewColumnWidth(min: 72, ideal: 300, max: 360)
         } detail: {
             HStack(spacing: 0) {
                 CanvasContainer(title: "StyleDemo", subtitle: selected.title) {
@@ -84,10 +79,6 @@ struct ContentView: View {
         .onAppear { syncWindowBackground() }
         .onChange(of: settings.appearance) { _, _ in syncWindowBackground() }
         .onChange(of: colorScheme) { _, _ in syncWindowBackground() }
-        .sheet(isPresented: $settingsVisible) {
-            @Bindable var bindable = settings
-            SettingsPanel(settings: bindable)
-        }
     }
 
     private func syncWindowBackground() {

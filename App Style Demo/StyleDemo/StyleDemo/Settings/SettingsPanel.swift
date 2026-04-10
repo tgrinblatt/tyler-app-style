@@ -4,7 +4,6 @@ struct SettingsPanel: View {
     @Bindable var settings: AppSettings
     @State private var selectedPage: SettingsPage = .appearance
     @Environment(\.colorScheme) private var colorScheme
-    @Environment(\.dismiss) private var dismiss
 
     enum SettingsPage: String, CaseIterable, Identifiable, Hashable {
         case appearance, general, about, credits
@@ -53,16 +52,6 @@ struct SettingsPanel: View {
                 .padding(.vertical, AppTokens.Spacing.sm)
 
                 Spacer(minLength: 0)
-
-                Divider().opacity(0.3)
-
-                HStack {
-                    Spacer()
-                    GlassButton(label: "Done", icon: "checkmark") {
-                        dismiss()
-                    }
-                }
-                .padding(AppTokens.Spacing.md)
             }
             .frame(width: 200)
             .background(.ultraThinMaterial)

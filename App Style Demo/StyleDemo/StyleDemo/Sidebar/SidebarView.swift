@@ -3,7 +3,6 @@ import SwiftUI
 struct SidebarView: View {
     @Binding var selected: Showcase
     @Binding var searchText: String
-    let onOpenSettings: () -> Void
     @Environment(\.colorScheme) private var colorScheme
 
     private var filtered: [Showcase] {
@@ -53,54 +52,7 @@ struct SidebarView: View {
             }
 
             Spacer(minLength: 0)
-
-            // Footer action bar — settings + future tool buttons live here,
-            // not in the window titlebar.
-            SidebarFooter(onOpenSettings: onOpenSettings)
         }
         .background(.ultraThinMaterial)
-    }
-}
-
-private struct SidebarFooter: View {
-    let onOpenSettings: () -> Void
-    @Environment(\.colorScheme) private var colorScheme
-    @State private var isHovered: Bool = false
-
-    var body: some View {
-        VStack(spacing: 0) {
-            Divider().opacity(0.3)
-            HStack(spacing: AppTokens.Spacing.xs) {
-                Button(action: onOpenSettings) {
-                    Image(systemName: "gearshape")
-                        .font(.system(size: 14, weight: .medium))
-                        .foregroundStyle(
-                            isHovered
-                                ? AppTokens.Color.textDisplay(for: colorScheme)
-                                : AppTokens.Color.textSecondary(for: colorScheme)
-                        )
-                        .frame(width: 32, height: 32)
-                        .background(
-                            RoundedRectangle(cornerRadius: AppTokens.Radius.md)
-                                .fill(
-                                    isHovered
-                                        ? AppTokens.Color.surface(for: colorScheme).opacity(0.6)
-                                        : .clear
-                                )
-                        )
-                        .contentShape(Rectangle())
-                }
-                .buttonStyle(.plain)
-                .scaleEffect(isHovered ? 1.03 : 1.0)
-                .onHover { hovering in
-                    withAnimation(AppTokens.Motion.snappy) { isHovered = hovering }
-                }
-                .help("Demo Settings")
-
-                Spacer()
-            }
-            .padding(.horizontal, AppTokens.Spacing.sm)
-            .padding(.vertical, AppTokens.Spacing.sm)
-        }
     }
 }

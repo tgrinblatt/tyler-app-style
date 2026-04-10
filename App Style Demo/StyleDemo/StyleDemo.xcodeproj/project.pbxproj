@@ -34,6 +34,7 @@
 		AAAA000000000000000001B8 /* InspectorShowcase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000B8 /* InspectorShowcase.swift */; };
 		AAAA000000000000000001B9 /* InspectorPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000B9 /* InspectorPanel.swift */; };
 		AAAA000000000000000001BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000BA /* Assets.xcassets */; };
+		AAAA000000000000000001C0 /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000C0 /* Fonts */; };
 		AAAA000000000000000001BD /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000BD /* AppSettings.swift */; };
 		AAAA000000000000000001BE /* SettingsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000BE /* SettingsPanel.swift */; };
 		AAAA000000000000000001BF /* StopwatchShowcase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000BF /* StopwatchShowcase.swift */; };
@@ -72,6 +73,7 @@
 		AAAA000000000000000000BD /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		AAAA000000000000000000BE /* SettingsPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPanel.swift; sourceTree = "<group>"; };
 		AAAA000000000000000000BF /* StopwatchShowcase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopwatchShowcase.swift; sourceTree = "<group>"; };
+		AAAA000000000000000000C0 /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,6 +201,7 @@
 		AAAA00000000000000000016 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				AAAA000000000000000000C0 /* Fonts */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAAA000000000000000001BA /* Assets.xcassets in Resources */,
+				AAAA000000000000000001C0 /* Fonts in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

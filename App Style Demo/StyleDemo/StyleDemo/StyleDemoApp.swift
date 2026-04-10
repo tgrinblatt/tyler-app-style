@@ -4,10 +4,13 @@ import AppKit
 @main
 struct StyleDemoApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @State private var settings = AppSettings()
 
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(settings)
+                .preferredColorScheme(settings.appearance.preferredColorScheme)
                 .toolbarBackgroundVisibility(.hidden, for: .windowToolbar)
                 .frame(minWidth: 1100, minHeight: 720)
         }

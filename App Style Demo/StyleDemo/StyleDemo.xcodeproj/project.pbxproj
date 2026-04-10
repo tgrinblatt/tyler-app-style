@@ -34,6 +34,8 @@
 		AAAA000000000000000001B8 /* InspectorShowcase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000B8 /* InspectorShowcase.swift */; };
 		AAAA000000000000000001B9 /* InspectorPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000B9 /* InspectorPanel.swift */; };
 		AAAA000000000000000001BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000BA /* Assets.xcassets */; };
+		AAAA000000000000000001BD /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000BD /* AppSettings.swift */; };
+		AAAA000000000000000001BE /* SettingsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000BE /* SettingsPanel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +68,8 @@
 		AAAA000000000000000000BA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AAAA000000000000000000BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AAAA000000000000000000BC /* StyleDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StyleDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AAAA000000000000000000BD /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		AAAA000000000000000000BE /* SettingsPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPanel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +102,7 @@
 				AAAA00000000000000000013 /* Canvas */,
 				AAAA00000000000000000014 /* Showcases */,
 				AAAA00000000000000000015 /* Inspector */,
+				AAAA00000000000000000018 /* Settings */,
 				AAAA00000000000000000016 /* Resources */,
 				AAAA000000000000000000BA /* Assets.xcassets */,
 				AAAA000000000000000000BB /* Info.plist */,
@@ -119,8 +124,17 @@
 				AAAA000000000000000000A2 /* AppTokens.swift */,
 				AAAA000000000000000000A3 /* NSColor+Hex.swift */,
 				AAAA000000000000000000A4 /* AppLabelStyle.swift */,
+				AAAA000000000000000000BD /* AppSettings.swift */,
 			);
 			path = Design;
+			sourceTree = "<group>";
+		};
+		AAAA00000000000000000018 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				AAAA000000000000000000BE /* SettingsPanel.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		AAAA00000000000000000011 /* Components */ = {
@@ -281,6 +295,8 @@
 				AAAA000000000000000001B7 /* MotionShowcase.swift in Sources */,
 				AAAA000000000000000001B8 /* InspectorShowcase.swift in Sources */,
 				AAAA000000000000000001B9 /* InspectorPanel.swift in Sources */,
+				AAAA000000000000000001BD /* AppSettings.swift in Sources */,
+				AAAA000000000000000001BE /* SettingsPanel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

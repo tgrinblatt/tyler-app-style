@@ -45,8 +45,10 @@ struct ContentView: View {
     @State private var selected: Showcase = .overview
     @State private var searchText: String = ""
     @State private var inspectorVisible: Bool = false
+    @State private var settingsVisible: Bool = false
     @State private var columnVisibility: NavigationSplitViewVisibility = .all
     @Environment(\.colorScheme) private var colorScheme
+    @Environment(AppSettings.self) private var settings
 
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
@@ -72,6 +74,14 @@ struct ContentView: View {
             .animation(AppTokens.Motion.smooth, value: selected)
         }
         .background(AppTokens.Color.background(for: colorScheme))
+        .onAppear { syncWindowBackground() }
+        .onChange(of: settings.appearance) { _, _ in syncWindowBackground() }
+        .onChange(of: colorScheme) { _, _ in syncWindowBackground() }
+    }
+
+    private func syncWindowBackground() {
+        let hex = settings.effectiveIsDark() ? "0A0A0A" : "FFFFFF"
+        NSApp.windows.forEach { $0.backgroundColor = NSColor(hex: hex) }
     }
 
     @ViewBuilder
@@ -112,6 +122,19 @@ struct ContentView: View {
                     .symbolVariant(inspectorVisible ? .none : .slash)
             }
             .help("Toggle Inspector")
+        }
+
+        ToolbarItem(placement: .automatic) {
+            @Bindable var bindable = settings
+            Button {
+                settingsVisible.toggle()
+            } label: {
+                Image(systemName: "gearshape")
+            }
+            .help("Demo Settings")
+            .popover(isPresented: $settingsVisible, arrowEdge: .bottom) {
+                SettingsPanel(settings: bindable)
+            }
         }
     }
 }

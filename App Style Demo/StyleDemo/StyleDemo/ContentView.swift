@@ -1,7 +1,7 @@
 import SwiftUI
 
 enum Showcase: String, CaseIterable, Identifiable, Hashable {
-    case overview, buttons, menuItems, liquidGlass, typography, colors, motion, inspector
+    case overview, buttons, menuItems, liquidGlass, typography, colors, motion, inspector, stopwatch
 
     var id: String { rawValue }
 
@@ -15,6 +15,7 @@ enum Showcase: String, CaseIterable, Identifiable, Hashable {
         case .colors:      return "Colors"
         case .motion:      return "Motion"
         case .inspector:   return "Inspector"
+        case .stopwatch:   return "Stopwatch"
         }
     }
 
@@ -28,6 +29,7 @@ enum Showcase: String, CaseIterable, Identifiable, Hashable {
         case .colors:      return "paintpalette"
         case .motion:      return "waveform.path"
         case .inspector:   return "sidebar.right"
+        case .stopwatch:   return "stopwatch"
         }
     }
 
@@ -37,6 +39,7 @@ enum Showcase: String, CaseIterable, Identifiable, Hashable {
         case .buttons, .menuItems, .liquidGlass:     return "COMPONENTS"
         case .typography, .colors, .motion:          return "STYLES"
         case .inspector:                             return "LAYOUT"
+        case .stopwatch:                             return "TOOLS"
         }
     }
 }
@@ -103,6 +106,7 @@ struct ContentView: View {
         case .colors:      ColorsShowcase()
         case .motion:      MotionShowcase()
         case .inspector:   InspectorShowcase()
+        case .stopwatch:   StopwatchShowcase()
         }
     }
 

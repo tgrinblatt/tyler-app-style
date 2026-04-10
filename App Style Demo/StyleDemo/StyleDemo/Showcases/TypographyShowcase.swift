@@ -6,33 +6,28 @@ struct TypographyShowcase: View {
     private let pangram = "The quick brown fox jumps over the lazy dog"
     private let symbols = "0123456789 !@#$%^&*()"
 
+    private let weights: [(String, String)] = [
+        ("BLACK",  "Black"),
+        ("BOLD",   "Bold"),
+        ("MEDIUM", "Medium"),
+        ("LIGHT",  "Light")
+    ]
+
     var body: some View {
         VStack(alignment: .leading, spacing: AppTokens.Spacing.xl) {
-            // TODO: swap to Geist when bundled — showing fallback notice
-            ConnectionBadge(label: "GEIST FONTS NOT BUNDLED — USING SYSTEM FALLBACKS", color: AppTokens.Color.warning)
-
-            familyPanel(
-                title: "GEIST",
-                design: .default,
-                weights: [("BLACK", .black), ("BOLD", .bold), ("MEDIUM", .medium), ("LIGHT", .light)]
-            )
-
-            familyPanel(
-                title: "GEIST MONO",
-                design: .monospaced,
-                weights: [("BLACK", .black), ("BOLD", .bold), ("MEDIUM", .medium), ("LIGHT", .light)]
-            )
+            familyPanel(title: "GEIST", prefix: "Geist")
+            familyPanel(title: "GEIST MONO", prefix: "GeistMono")
 
             VStack(alignment: .leading, spacing: AppTokens.Spacing.sm) {
                 Text("GEIST PIXEL").appLabel()
                 GlassSectionCard {
-                    VStack(alignment: .leading, spacing: AppTokens.Spacing.sm) {
-                        Text("HELLO WORLD")
-                            .font(.system(size: 42, weight: .regular, design: .monospaced))
-                            .foregroundStyle(AppTokens.Color.textDisplay(for: colorScheme))
-                        Text("AA BB CC 00 11 22")
-                            .font(.system(size: 14, weight: .regular, design: .monospaced))
-                            .foregroundStyle(AppTokens.Color.textPrimary(for: colorScheme))
+                    VStack(alignment: .leading, spacing: AppTokens.Spacing.lg) {
+                        ForEach(Array(AppTokens.FontFamily.PixelVariant.allCases.enumerated()), id: \.element) { index, variant in
+                            pixelVariantRow(variant)
+                            if index < AppTokens.FontFamily.PixelVariant.allCases.count - 1 {
+                                Divider().opacity(0.3)
+                            }
+                        }
                     }
                 }
             }
@@ -41,7 +36,7 @@ struct TypographyShowcase: View {
         }
     }
 
-    private func familyPanel(title: String, design: SwiftUI.Font.Design, weights: [(String, SwiftUI.Font.Weight)]) -> some View {
+    private func familyPanel(title: String, prefix: String) -> some View {
         VStack(alignment: .leading, spacing: AppTokens.Spacing.sm) {
             Text(title).appLabel()
             GlassSectionCard {
@@ -50,15 +45,33 @@ struct TypographyShowcase: View {
                         VStack(alignment: .leading, spacing: AppTokens.Spacing.xs) {
                             Text(name).appLabel()
                             Text(pangram)
-                                .font(.system(size: 42, weight: weight, design: design))
+                                .font(.custom("\(prefix)-\(weight)", size: 42))
                                 .foregroundStyle(AppTokens.Color.textDisplay(for: colorScheme))
                             Text(symbols)
-                                .font(.system(size: 14, weight: weight, design: design))
+                                .font(.custom("\(prefix)-\(weight)", size: 14))
                                 .foregroundStyle(AppTokens.Color.textPrimary(for: colorScheme))
                         }
                     }
                 }
             }
+        }
+    }
+
+    private func pixelVariantRow(_ variant: AppTokens.FontFamily.PixelVariant) -> some View {
+        VStack(alignment: .leading, spacing: AppTokens.Spacing.xs) {
+            HStack(alignment: .firstTextBaseline) {
+                Text(variant.label).appLabel()
+                Spacer()
+                Text("GeistPixel-\(variant.rawValue)")
+                    .font(AppTokens.Font.caption)
+                    .foregroundStyle(AppTokens.Color.textTertiary(for: colorScheme))
+            }
+            Text("HELLO WORLD 0123")
+                .font(AppTokens.FontFamily.geistPixel(variant, size: 42))
+                .foregroundStyle(AppTokens.Color.textDisplay(for: colorScheme))
+            Text("AA BB CC 00 11 22")
+                .font(AppTokens.FontFamily.geistPixel(variant, size: 14))
+                .foregroundStyle(AppTokens.Color.textPrimary(for: colorScheme))
         }
     }
 

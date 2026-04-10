@@ -36,6 +36,7 @@
 		AAAA000000000000000001BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000BA /* Assets.xcassets */; };
 		AAAA000000000000000001BD /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000BD /* AppSettings.swift */; };
 		AAAA000000000000000001BE /* SettingsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000BE /* SettingsPanel.swift */; };
+		AAAA000000000000000001BF /* StopwatchShowcase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000BF /* StopwatchShowcase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +71,7 @@
 		AAAA000000000000000000BC /* StyleDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StyleDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAAA000000000000000000BD /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		AAAA000000000000000000BE /* SettingsPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPanel.swift; sourceTree = "<group>"; };
+		AAAA000000000000000000BF /* StopwatchShowcase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopwatchShowcase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +183,7 @@
 				AAAA000000000000000000B6 /* ColorsShowcase.swift */,
 				AAAA000000000000000000B7 /* MotionShowcase.swift */,
 				AAAA000000000000000000B8 /* InspectorShowcase.swift */,
+				AAAA000000000000000000BF /* StopwatchShowcase.swift */,
 			);
 			path = Showcases;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 				AAAA000000000000000001B9 /* InspectorPanel.swift in Sources */,
 				AAAA000000000000000001BD /* AppSettings.swift in Sources */,
 				AAAA000000000000000001BE /* SettingsPanel.swift in Sources */,
+				AAAA000000000000000001BF /* StopwatchShowcase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

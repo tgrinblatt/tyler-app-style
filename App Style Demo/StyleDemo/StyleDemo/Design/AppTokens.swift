@@ -86,20 +86,48 @@ enum AppTokens {
     }
 
     // MARK: - Typography
-    // TODO: swap to Geist when bundled (Geist-Black/Bold/Medium/Light, GeistMono-*, GeistPixel-Regular)
+    //
+    // Geist / Geist Mono / Geist Pixel are expected to be available — either
+    // bundled via Resources/Fonts or installed system-wide. SwiftUI silently
+    // falls back to SF when a PostScript name is missing, so these never
+    // hard-fail.
 
     enum Font {
-        static let displayLarge: SwiftUI.Font = .system(size: 42, weight: .bold)
-        static let displayMedium: SwiftUI.Font = .system(size: 28, weight: .bold)
-        static let displaySmall: SwiftUI.Font = .system(size: 20, weight: .semibold)
-        static let headingLarge: SwiftUI.Font = .system(size: 17, weight: .medium)
-        static let headingSmall: SwiftUI.Font = .system(size: 13, weight: .medium)
-        static let bodyLarge: SwiftUI.Font = .system(size: 15, weight: .regular, design: .monospaced)
-        static let bodySmall: SwiftUI.Font = .system(size: 12, weight: .regular, design: .monospaced)
-        static let caption: SwiftUI.Font = .system(size: 10, weight: .regular, design: .monospaced)
-        static let label: SwiftUI.Font = .system(size: 11, weight: .medium)
-        static let numeric: SwiftUI.Font = .system(size: 24, weight: .bold, design: .monospaced)
-        static let numericSmall: SwiftUI.Font = .system(size: 14, weight: .bold, design: .monospaced)
+        static let displayLarge: SwiftUI.Font  = .custom("Geist-Bold",       size: 42)
+        static let displayMedium: SwiftUI.Font = .custom("Geist-Bold",       size: 28)
+        static let displaySmall: SwiftUI.Font  = .custom("Geist-SemiBold",   size: 20)
+        static let headingLarge: SwiftUI.Font  = .custom("Geist-Medium",     size: 17)
+        static let headingSmall: SwiftUI.Font  = .custom("Geist-Medium",     size: 13)
+        static let bodyLarge: SwiftUI.Font     = .custom("GeistMono-Regular", size: 15)
+        static let bodySmall: SwiftUI.Font     = .custom("GeistMono-Regular", size: 12)
+        static let caption: SwiftUI.Font       = .custom("GeistMono-Regular", size: 10)
+        static let label: SwiftUI.Font         = .custom("Geist-Medium",     size: 11)
+        static let numeric: SwiftUI.Font       = .custom("GeistMono-Bold",    size: 24)
+        static let numericSmall: SwiftUI.Font  = .custom("GeistMono-Bold",    size: 14)
+    }
+
+    /// Free-form Geist access for showcases that don't use semantic tokens
+    /// (e.g. the Stopwatch display uses GeistPixel-Circle at 140pt).
+    enum FontFamily {
+        static func geist(_ weight: String = "Regular", size: CGFloat) -> SwiftUI.Font {
+            .custom("Geist-\(weight)", size: size)
+        }
+        static func geistMono(_ weight: String = "Regular", size: CGFloat) -> SwiftUI.Font {
+            .custom("GeistMono-\(weight)", size: size)
+        }
+        static func geistPixel(_ variant: PixelVariant, size: CGFloat) -> SwiftUI.Font {
+            .custom("GeistPixel-\(variant.rawValue)", size: size)
+        }
+
+        enum PixelVariant: String, CaseIterable, Identifiable {
+            case circle = "Circle"
+            case square = "Square"
+            case triangle = "Triangle"
+            case line = "Line"
+            case grid = "Grid"
+            var id: String { rawValue }
+            var label: String { rawValue.uppercased() }
+        }
     }
 
     // MARK: - Spacing (8pt grid)

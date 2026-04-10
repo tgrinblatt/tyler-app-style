@@ -15,7 +15,7 @@ struct SidebarView: View {
 
     private var sections: [(String, [Showcase])] {
         let grouped = Dictionary(grouping: filtered, by: { $0.section })
-        let order = ["START", "COMPONENTS", "STYLES", "LAYOUT"]
+        let order = ["START", "COMPONENTS", "STYLES", "LAYOUT", "TOOLS"]
         return order.compactMap { key in
             guard let items = grouped[key], !items.isEmpty else { return nil }
             return (key, items)

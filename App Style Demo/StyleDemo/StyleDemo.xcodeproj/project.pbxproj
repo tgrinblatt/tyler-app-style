@@ -1,0 +1,444 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 70;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AAAA000000000000000001A0 /* StyleDemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000A0 /* StyleDemoApp.swift */; };
+		AAAA000000000000000001A1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000A1 /* ContentView.swift */; };
+		AAAA000000000000000001A2 /* AppTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000A2 /* AppTokens.swift */; };
+		AAAA000000000000000001A3 /* NSColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000A3 /* NSColor+Hex.swift */; };
+		AAAA000000000000000001A4 /* AppLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000A4 /* AppLabelStyle.swift */; };
+		AAAA000000000000000001A5 /* GlassButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000A5 /* GlassButton.swift */; };
+		AAAA000000000000000001A6 /* StatPill.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000A6 /* StatPill.swift */; };
+		AAAA000000000000000001A7 /* ConnectionBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000A7 /* ConnectionBadge.swift */; };
+		AAAA000000000000000001A8 /* GlassPillTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000A8 /* GlassPillTitle.swift */; };
+		AAAA000000000000000001A9 /* GlassFilterBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000A9 /* GlassFilterBar.swift */; };
+		AAAA000000000000000001AA /* GlassSectionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000AA /* GlassSectionCard.swift */; };
+		AAAA000000000000000001AB /* GlassSliderHandle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000AB /* GlassSliderHandle.swift */; };
+		AAAA000000000000000001AC /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000AC /* SidebarView.swift */; };
+		AAAA000000000000000001AD /* SidebarRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000AD /* SidebarRow.swift */; };
+		AAAA000000000000000001AE /* SidebarSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000AE /* SidebarSearch.swift */; };
+		AAAA000000000000000001AF /* CanvasHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000AF /* CanvasHeader.swift */; };
+		AAAA000000000000000001B0 /* CanvasContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000B0 /* CanvasContainer.swift */; };
+		AAAA000000000000000001B1 /* OverviewShowcase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000B1 /* OverviewShowcase.swift */; };
+		AAAA000000000000000001B2 /* ButtonsShowcase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000B2 /* ButtonsShowcase.swift */; };
+		AAAA000000000000000001B3 /* MenuItemsShowcase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000B3 /* MenuItemsShowcase.swift */; };
+		AAAA000000000000000001B4 /* LiquidGlassShowcase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000B4 /* LiquidGlassShowcase.swift */; };
+		AAAA000000000000000001B5 /* TypographyShowcase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000B5 /* TypographyShowcase.swift */; };
+		AAAA000000000000000001B6 /* ColorsShowcase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000B6 /* ColorsShowcase.swift */; };
+		AAAA000000000000000001B7 /* MotionShowcase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000B7 /* MotionShowcase.swift */; };
+		AAAA000000000000000001B8 /* InspectorShowcase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000B8 /* InspectorShowcase.swift */; };
+		AAAA000000000000000001B9 /* InspectorPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000B9 /* InspectorPanel.swift */; };
+		AAAA000000000000000001BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAAA000000000000000000BA /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AAAA000000000000000000A0 /* StyleDemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleDemoApp.swift; sourceTree = "<group>"; };
+		AAAA000000000000000000A1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		AAAA000000000000000000A2 /* AppTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTokens.swift; sourceTree = "<group>"; };
+		AAAA000000000000000000A3 /* NSColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+Hex.swift"; sourceTree = "<group>"; };
+		AAAA000000000000000000A4 /* AppLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLabelStyle.swift; sourceTree = "<group>"; };
+		AAAA000000000000000000A5 /* GlassButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassButton.swift; sourceTree = "<group>"; };
+		AAAA000000000000000000A6 /* StatPill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatPill.swift; sourceTree = "<group>"; };
+		AAAA000000000000000000A7 /* ConnectionBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionBadge.swift; sourceTree = "<group>"; };
+		AAAA000000000000000000A8 /* GlassPillTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassPillTitle.swift; sourceTree = "<group>"; };
+		AAAA000000000000000000A9 /* GlassFilterBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassFilterBar.swift; sourceTree = "<group>"; };
+		AAAA000000000000000000AA /* GlassSectionCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassSectionCard.swift; sourceTree = "<group>"; };
+		AAAA000000000000000000AB /* GlassSliderHandle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassSliderHandle.swift; sourceTree = "<group>"; };
+		AAAA000000000000000000AC /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
+		AAAA000000000000000000AD /* SidebarRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarRow.swift; sourceTree = "<group>"; };
+		AAAA000000000000000000AE /* SidebarSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarSearch.swift; sourceTree = "<group>"; };
+		AAAA000000000000000000AF /* CanvasHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasHeader.swift; sourceTree = "<group>"; };
+		AAAA000000000000000000B0 /* CanvasContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasContainer.swift; sourceTree = "<group>"; };
+		AAAA000000000000000000B1 /* OverviewShowcase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewShowcase.swift; sourceTree = "<group>"; };
+		AAAA000000000000000000B2 /* ButtonsShowcase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsShowcase.swift; sourceTree = "<group>"; };
+		AAAA000000000000000000B3 /* MenuItemsShowcase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemsShowcase.swift; sourceTree = "<group>"; };
+		AAAA000000000000000000B4 /* LiquidGlassShowcase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiquidGlassShowcase.swift; sourceTree = "<group>"; };
+		AAAA000000000000000000B5 /* TypographyShowcase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypographyShowcase.swift; sourceTree = "<group>"; };
+		AAAA000000000000000000B6 /* ColorsShowcase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsShowcase.swift; sourceTree = "<group>"; };
+		AAAA000000000000000000B7 /* MotionShowcase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionShowcase.swift; sourceTree = "<group>"; };
+		AAAA000000000000000000B8 /* InspectorShowcase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorShowcase.swift; sourceTree = "<group>"; };
+		AAAA000000000000000000B9 /* InspectorPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorPanel.swift; sourceTree = "<group>"; };
+		AAAA000000000000000000BA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AAAA000000000000000000BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AAAA000000000000000000BC /* StyleDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StyleDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AAAA00000000000000000080 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AAAA00000000000000000000 /* StyleDemo (Project) */ = {
+			isa = PBXGroup;
+			children = (
+				AAAA00000000000000000001 /* StyleDemo */,
+				AAAA00000000000000000002 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AAAA00000000000000000001 /* StyleDemo */ = {
+			isa = PBXGroup;
+			children = (
+				AAAA000000000000000000A0 /* StyleDemoApp.swift */,
+				AAAA000000000000000000A1 /* ContentView.swift */,
+				AAAA00000000000000000010 /* Design */,
+				AAAA00000000000000000011 /* Components */,
+				AAAA00000000000000000012 /* Sidebar */,
+				AAAA00000000000000000013 /* Canvas */,
+				AAAA00000000000000000014 /* Showcases */,
+				AAAA00000000000000000015 /* Inspector */,
+				AAAA00000000000000000016 /* Resources */,
+				AAAA000000000000000000BA /* Assets.xcassets */,
+				AAAA000000000000000000BB /* Info.plist */,
+			);
+			path = StyleDemo;
+			sourceTree = "<group>";
+		};
+		AAAA00000000000000000002 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AAAA000000000000000000BC /* StyleDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AAAA00000000000000000010 /* Design */ = {
+			isa = PBXGroup;
+			children = (
+				AAAA000000000000000000A2 /* AppTokens.swift */,
+				AAAA000000000000000000A3 /* NSColor+Hex.swift */,
+				AAAA000000000000000000A4 /* AppLabelStyle.swift */,
+			);
+			path = Design;
+			sourceTree = "<group>";
+		};
+		AAAA00000000000000000011 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				AAAA000000000000000000A5 /* GlassButton.swift */,
+				AAAA000000000000000000A6 /* StatPill.swift */,
+				AAAA000000000000000000A7 /* ConnectionBadge.swift */,
+				AAAA000000000000000000A8 /* GlassPillTitle.swift */,
+				AAAA000000000000000000A9 /* GlassFilterBar.swift */,
+				AAAA000000000000000000AA /* GlassSectionCard.swift */,
+				AAAA000000000000000000AB /* GlassSliderHandle.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		AAAA00000000000000000012 /* Sidebar */ = {
+			isa = PBXGroup;
+			children = (
+				AAAA000000000000000000AC /* SidebarView.swift */,
+				AAAA000000000000000000AD /* SidebarRow.swift */,
+				AAAA000000000000000000AE /* SidebarSearch.swift */,
+			);
+			path = Sidebar;
+			sourceTree = "<group>";
+		};
+		AAAA00000000000000000013 /* Canvas */ = {
+			isa = PBXGroup;
+			children = (
+				AAAA000000000000000000AF /* CanvasHeader.swift */,
+				AAAA000000000000000000B0 /* CanvasContainer.swift */,
+			);
+			path = Canvas;
+			sourceTree = "<group>";
+		};
+		AAAA00000000000000000014 /* Showcases */ = {
+			isa = PBXGroup;
+			children = (
+				AAAA000000000000000000B1 /* OverviewShowcase.swift */,
+				AAAA000000000000000000B2 /* ButtonsShowcase.swift */,
+				AAAA000000000000000000B3 /* MenuItemsShowcase.swift */,
+				AAAA000000000000000000B4 /* LiquidGlassShowcase.swift */,
+				AAAA000000000000000000B5 /* TypographyShowcase.swift */,
+				AAAA000000000000000000B6 /* ColorsShowcase.swift */,
+				AAAA000000000000000000B7 /* MotionShowcase.swift */,
+				AAAA000000000000000000B8 /* InspectorShowcase.swift */,
+			);
+			path = Showcases;
+			sourceTree = "<group>";
+		};
+		AAAA00000000000000000015 /* Inspector */ = {
+			isa = PBXGroup;
+			children = (
+				AAAA000000000000000000B9 /* InspectorPanel.swift */,
+			);
+			path = Inspector;
+			sourceTree = "<group>";
+		};
+		AAAA00000000000000000016 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AAAA00000000000000000090 /* StyleDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AAAA00000000000000000071 /* Build configuration list for PBXNativeTarget "StyleDemo" */;
+			buildPhases = (
+				AAAA00000000000000000081 /* Sources */,
+				AAAA00000000000000000080 /* Frameworks */,
+				AAAA00000000000000000082 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = StyleDemo;
+			productName = StyleDemo;
+			productReference = AAAA000000000000000000BC /* StyleDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AAAA00000000000000000050 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2600;
+				LastUpgradeCheck = 2600;
+				TargetAttributes = {
+					AAAA00000000000000000090 = {
+						CreatedOnToolsVersion = 26.0;
+					};
+				};
+			};
+			buildConfigurationList = AAAA00000000000000000070 /* Build configuration list for PBXProject "StyleDemo" */;
+			compatibilityVersion = "Xcode 15.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AAAA00000000000000000000;
+			productRefGroup = AAAA00000000000000000002 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AAAA00000000000000000090 /* StyleDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AAAA00000000000000000082 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAAA000000000000000001BA /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AAAA00000000000000000081 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAAA000000000000000001A0 /* StyleDemoApp.swift in Sources */,
+				AAAA000000000000000001A1 /* ContentView.swift in Sources */,
+				AAAA000000000000000001A2 /* AppTokens.swift in Sources */,
+				AAAA000000000000000001A3 /* NSColor+Hex.swift in Sources */,
+				AAAA000000000000000001A4 /* AppLabelStyle.swift in Sources */,
+				AAAA000000000000000001A5 /* GlassButton.swift in Sources */,
+				AAAA000000000000000001A6 /* StatPill.swift in Sources */,
+				AAAA000000000000000001A7 /* ConnectionBadge.swift in Sources */,
+				AAAA000000000000000001A8 /* GlassPillTitle.swift in Sources */,
+				AAAA000000000000000001A9 /* GlassFilterBar.swift in Sources */,
+				AAAA000000000000000001AA /* GlassSectionCard.swift in Sources */,
+				AAAA000000000000000001AB /* GlassSliderHandle.swift in Sources */,
+				AAAA000000000000000001AC /* SidebarView.swift in Sources */,
+				AAAA000000000000000001AD /* SidebarRow.swift in Sources */,
+				AAAA000000000000000001AE /* SidebarSearch.swift in Sources */,
+				AAAA000000000000000001AF /* CanvasHeader.swift in Sources */,
+				AAAA000000000000000001B0 /* CanvasContainer.swift in Sources */,
+				AAAA000000000000000001B1 /* OverviewShowcase.swift in Sources */,
+				AAAA000000000000000001B2 /* ButtonsShowcase.swift in Sources */,
+				AAAA000000000000000001B3 /* MenuItemsShowcase.swift in Sources */,
+				AAAA000000000000000001B4 /* LiquidGlassShowcase.swift in Sources */,
+				AAAA000000000000000001B5 /* TypographyShowcase.swift in Sources */,
+				AAAA000000000000000001B6 /* ColorsShowcase.swift in Sources */,
+				AAAA000000000000000001B7 /* MotionShowcase.swift in Sources */,
+				AAAA000000000000000001B8 /* InspectorShowcase.swift in Sources */,
+				AAAA000000000000000001B9 /* InspectorPanel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		AAAA00000000000000000060 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		AAAA00000000000000000061 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		AAAA00000000000000000062 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_HARDENED_RUNTIME = NO;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = StyleDemo/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = StyleDemo;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = "";
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tylergrinblatt.StyleDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		AAAA00000000000000000063 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_HARDENED_RUNTIME = NO;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = StyleDemo/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = StyleDemo;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = "";
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tylergrinblatt.StyleDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AAAA00000000000000000070 /* Build configuration list for PBXProject "StyleDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AAAA00000000000000000060 /* Debug */,
+				AAAA00000000000000000061 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AAAA00000000000000000071 /* Build configuration list for PBXNativeTarget "StyleDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AAAA00000000000000000062 /* Debug */,
+				AAAA00000000000000000063 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AAAA00000000000000000050 /* Project object */;
+}

@@ -103,11 +103,13 @@ struct ContentView: View {
 
     @ToolbarContentBuilder
     private var canvasToolbar: some ToolbarContent {
-        ToolbarItem(placement: .navigation) {
+        ToolbarItemGroup(placement: .navigation) {
             Text("StyleDemo")
                 .font(AppTokens.Font.displaySmall)
                 .foregroundStyle(AppTokens.Color.textDisplay(for: colorScheme))
+                .padding(.leading, AppTokens.Spacing.md)
         }
+        .sharedBackgroundVisibility(.hidden)
 
         ToolbarItem(placement: .principal) {
             Text(selected.title)
@@ -115,6 +117,8 @@ struct ContentView: View {
                 .tracking(0.88)
                 .textCase(.uppercase)
                 .foregroundStyle(AppTokens.Color.textDisplay(for: colorScheme))
+                .padding(.horizontal, AppTokens.Spacing.md)
+                .padding(.vertical, AppTokens.Spacing.xs)
         }
 
         ToolbarItem(placement: .automatic) {

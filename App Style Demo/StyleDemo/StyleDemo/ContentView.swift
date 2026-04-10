@@ -103,17 +103,18 @@ struct ContentView: View {
 
     @ToolbarContentBuilder
     private var canvasToolbar: some ToolbarContent {
+        ToolbarItem(placement: .navigation) {
+            Text("StyleDemo")
+                .font(AppTokens.Font.displaySmall)
+                .foregroundStyle(AppTokens.Color.textDisplay(for: colorScheme))
+        }
+
         ToolbarItem(placement: .principal) {
-            HStack(alignment: .firstTextBaseline, spacing: AppTokens.Spacing.md) {
-                Text("StyleDemo")
-                    .font(AppTokens.Font.displaySmall)
-                    .foregroundStyle(AppTokens.Color.textDisplay(for: colorScheme))
-                Text(selected.title)
-                    .font(AppTokens.Font.label)
-                    .tracking(0.88)
-                    .textCase(.uppercase)
-                    .foregroundStyle(AppTokens.Color.textTertiary(for: colorScheme))
-            }
+            Text(selected.title)
+                .font(AppTokens.Font.label)
+                .tracking(0.88)
+                .textCase(.uppercase)
+                .foregroundStyle(AppTokens.Color.textDisplay(for: colorScheme))
         }
 
         ToolbarItem(placement: .automatic) {

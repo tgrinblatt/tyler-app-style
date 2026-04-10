@@ -52,8 +52,12 @@ struct ContentView: View {
 
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
-            SidebarView(selected: $selected, searchText: $searchText)
-                .navigationSplitViewColumnWidth(min: 72, ideal: 300, max: 360)
+            SidebarView(
+                selected: $selected,
+                searchText: $searchText,
+                onOpenSettings: { settingsVisible = true }
+            )
+            .navigationSplitViewColumnWidth(min: 72, ideal: 300, max: 360)
         } detail: {
             HStack(spacing: 0) {
                 CanvasContainer(title: "StyleDemo", subtitle: selected.title) {
@@ -77,6 +81,10 @@ struct ContentView: View {
         .onAppear { syncWindowBackground() }
         .onChange(of: settings.appearance) { _, _ in syncWindowBackground() }
         .onChange(of: colorScheme) { _, _ in syncWindowBackground() }
+        .sheet(isPresented: $settingsVisible) {
+            @Bindable var bindable = settings
+            SettingsPanel(settings: bindable)
+        }
     }
 
     private func syncWindowBackground() {
@@ -122,19 +130,6 @@ struct ContentView: View {
                     .symbolVariant(inspectorVisible ? .none : .slash)
             }
             .help("Toggle Inspector")
-        }
-
-        ToolbarItem(placement: .automatic) {
-            @Bindable var bindable = settings
-            Button {
-                settingsVisible.toggle()
-            } label: {
-                Image(systemName: "gearshape")
-            }
-            .help("Demo Settings")
-            .popover(isPresented: $settingsVisible, arrowEdge: .bottom) {
-                SettingsPanel(settings: bindable)
-            }
         }
     }
 }

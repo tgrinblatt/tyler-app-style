@@ -1,17 +1,15 @@
 # Tyler App Style
 
-A Claude Code skill that teaches Claude how to build macOS SwiftUI apps using **Tyler App Style** — a hybrid design system combining [Nothing Design](https://nothing.tech) dark aesthetics with Apple's [Liquid Glass](https://developer.apple.com/design/human-interface-guidelines/materials#Glass) (macOS 26+). Supports both **dark and light** color schemes.
+A Claude Code skill that teaches Claude how to build macOS SwiftUI apps using **Tyler App Style** — a dark-first, monochrome-with-orange design system built on Apple's [Liquid Glass](https://developer.apple.com/design/human-interface-guidelines/materials#Glass) (macOS 26+). Supports both **dark and light** color schemes.
 
 ## Design Philosophy
 
-| Nothing Design | Apple Liquid Glass | Tyler App Style |
-|---|---|---|
-| Dark `#0A0A0A` background | System materials | Dark/light adaptive background + glass on chrome |
-| Monochrome + orange accent | System semantic colors | Custom monochrome palette + `#E5600A` orange |
-| All-caps labels, monospace data | SF Pro, system text styles | Geist/GeistMono (system monospace fallback) |
-| Sharp corners, hairline borders | Rounded, blurred materials | Soft corners (4-16pt) + glass effects |
-| No animations | Spring animations | Spring-only animations (snappy/smooth/bouncy) |
-| Flat surfaces | Translucent depth | Glass on navigation, flat on content |
+- **Adaptive surfaces** — dark/light background with glass on chrome
+- **Monochrome palette** with a single `#E5600A` orange accent
+- **Geist / GeistMono** typography (system monospace fallback)
+- **Soft corners** (4–16pt) paired with Liquid Glass effects
+- **Spring-only animations** (snappy / smooth / bouncy)
+- **Glass on navigation, flat on content**
 
 ## What's Included
 
